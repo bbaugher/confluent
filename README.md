@@ -14,11 +14,13 @@ Getting Started
 
 ### Install/Configure Confluent Package
 
-If you include the default recipe `recipe[confluent]` this will install the Confluent package and nothing else.
+If you include the `recipe[confluent]` this will install the Confluent package and nothing else.
+
+You can find the package installed under `/opt/confluent` (by default) with the name `confluent-VERSION`.
 
 ### Start Kafka REST Service
 
-If you include the recipe `recipe[confluent::kafka-rest]` this will install the Confluent package and start the
+If you include the `recipe[confluent::kafka-rest]` this will install the Confluent package and start the
 Kafka REST service. 
 
 You can configure the service using the attribtues `node["confluent"]["kafka-rest"]["kafka-rest.properties"][...] = ...`. 

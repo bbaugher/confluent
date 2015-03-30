@@ -56,6 +56,10 @@ template "/etc/kafka/server.properties" do
   mode "755"
   variables({:properties => node["confluent"]["kafka"]["server.properties"]})
   backup false
+
+  if node.run_list.include?("recipe[confluent::kafka]")
+    notifies :restart, "service[kafka]"
+  end
 end
 
 template "/etc/kafka/log4j.properties" do
@@ -65,6 +69,10 @@ template "/etc/kafka/log4j.properties" do
   mode "755"
   variables({:properties => node["confluent"]["kafka"]["log4j.properties"]})
   backup false
+
+  if node.run_list.include?("recipe[confluent::kafka]")
+    notifies :restart, "service[kafka]"
+  end
 end
 
 # Kafka Rest config files
@@ -80,6 +88,10 @@ template "/etc/kafka-rest/kafka-rest.properties" do
   mode "755"
   variables({:properties => node["confluent"]["kafka-rest"]["kafka-rest.properties"]})
   backup false
+
+  if node.run_list.include?("recipe[confluent::kafka-rest]")
+    notifies :restart, "service[kafka-rest]"
+  end
 end
 
 template "/etc/kafka-rest/log4j.properties" do
@@ -89,6 +101,10 @@ template "/etc/kafka-rest/log4j.properties" do
   mode "755"
   variables({:properties => node["confluent"]["kafka-rest"]["log4j.properties"]})
   backup false
+
+  if node.run_list.include?("recipe[confluent::kafka-rest]")
+    notifies :restart, "service[kafka-rest]"
+  end
 end
 
 # Schema registry config files
@@ -104,6 +120,10 @@ template "/etc/schema-registry/schema-registry.properties" do
   mode "755"
   variables({:properties => node["confluent"]["schema-registry"]["schema-registry.properties"]})
   backup false
+
+  if node.run_list.include?("recipe[confluent::schema-registry]")
+    notifies :restart, "service[schema-registry]"
+  end
 end
 
 template "/etc/schema-registry/log4j.properties" do
@@ -113,4 +133,8 @@ template "/etc/schema-registry/log4j.properties" do
   mode "755"
   variables({:properties => node["confluent"]["schema-registry"]["log4j.properties"]})
   backup false
+
+  if node.run_list.include?("recipe[confluent::schema-registry]")
+    notifies :restart, "service[schema-registry]"
+  end
 end

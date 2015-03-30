@@ -23,11 +23,14 @@ suites:
       # We only include apt because of an issue installing java where ubuntu 
       # requires an apt-get update in order to successfully run
       - recipe[apt]
-      - recipe[apache_zookeeper]
       - recipe[confluent_tester]
       - recipe[confluent::kafka-rest]
+      - recipe[confluent::schema-registry]
     attributes:
       confluent:
         kafka-rest:
           kafka-rest.properties:
             bootstrap.servers: localhost:9092
+        schema-registry:
+          schema-registry.properties:
+            kafkastore.connection.url: localhost:2181

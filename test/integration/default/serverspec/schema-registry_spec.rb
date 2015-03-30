@@ -2,11 +2,11 @@
 
 require 'spec_helper'
 
-describe service('kafka-rest') do
+describe service('schema-registry') do
   it { should be_running   }
 end
 
-# Kafka Rest API
-describe port(8082) do
+# Schema Registry API
+describe port(8081) do
   it { should be_listening }
 end

@@ -6,6 +6,7 @@ Confluent Cookbook
 Installs the [Confluent](http://confluent.io/) package and can run its services,
 
  * Kafka REST
+ * Schema Registry
 
 View the [Change Log](CHANGELOG.md) to see what has changed.
 
@@ -29,6 +30,15 @@ You can configure the service using the attribtues `node["confluent"]["kafka-res
 Use Confluent's [Kafka REST doc](http://confluent.io/docs/current/kafka-rest/docs/config.html) to figure out the 
 appropriate configuration for yourself.
 
+### Start Schema Registry Service
+
+If you include the `recipe[confluent::schema-registry]` this will install the Confluent package and start the
+Schema Registry service. 
+
+You can configure the service using the attribtues `node["confluent"]["schema-registry"]["schema-registry.properties"][...] = ...`. 
+Use Confluent's [Schema Registry doc](http://confluent.io/docs/current/schema-registry/docs/config.html) to figure out the 
+appropriate configuration for yourself.
+
 Attributes
 ----------
 
@@ -45,3 +55,8 @@ Attributes
 
  * `node["confluent"]["kafka-rest"]["kafka-rest.properties"]` : A Hash of properties that configure the Kafka REST service (default=`{}`)
  * `node["confluent"]["kafka-rest"]["log4j.properties"]` : A Hash of properties that configure log4j for the Kafka REST service
+
+ ### Schema Registry
+
+ * `node["confluent"]["schema-registry"]["schema-registry.properties"]` : A Hash of properties that configure the Schema Registry service (default=`{}`)
+ * `node["confluent"]["schema-registry"]["log4j.properties"]` : A Hash of properties that configure log4j for the Schema Registry service

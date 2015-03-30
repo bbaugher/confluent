@@ -4,8 +4,10 @@ maintainer_email 'Bryan.Baugher@Cerner.com'
 license          'All rights reserved'
 description      'Installs/Configures confluent'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.2.0'
 
-%w{ ubuntu centos }.each do |os|
-  supports os
-end
+supports 'ubuntu'
+supports 'centos'
+
+depends 'java'
+
+version          '0.2.0'

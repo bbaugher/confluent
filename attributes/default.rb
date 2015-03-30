@@ -12,3 +12,11 @@ default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.rootLogger"] = "IN
 default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.stdout"] = "org.apache.log4j.ConsoleAppender"
 default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.stdout.layout"] = "org.apache.log4j.PatternLayout"
 default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.stdout.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"
+
+default["confluent"]["schema-registry"]["schema-registry.properties"] = {}
+
+# TODO: Do proper logging
+default["confluent"]["schema-registry"]["log4j.properties"]["log4j.rootLogger"] = "INFO, stdout"
+default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.stdout"] = "org.apache.log4j.ConsoleAppender"
+default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.stdout.layout"] = "org.apache.log4j.PatternLayout"
+default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.stdout.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"

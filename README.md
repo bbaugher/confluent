@@ -19,7 +19,8 @@ If you include the `recipe[confluent]` this will install the Confluent package a
 
 You can find the package installed under `/opt/confluent` (by default) with the name `confluent-VERSION`.
 
-You can also find the Kafka REST configuration under `/etc/kafka-rest`
+You can also find the Kafka REST configuration under `/etc/kafka-rest` and the Schema Registry configuration
+under `/etc/schema-registry`.
 
 ### Start Kafka REST Service
 
@@ -30,6 +31,8 @@ You can configure the service using the attribtues `node["confluent"]["kafka-res
 Use Confluent's [Kafka REST doc](http://confluent.io/docs/current/kafka-rest/docs/config.html) to figure out the 
 appropriate configuration for yourself.
 
+You can find the SysV script at `/etc/init.d/kafka-rest` or `kafka-rest [start|stop|restart|status]`.
+
 ### Start Schema Registry Service
 
 If you include the `recipe[confluent::schema-registry]` this will install the Confluent package and start the
@@ -38,6 +41,8 @@ Schema Registry service.
 You can configure the service using the attribtues `node["confluent"]["schema-registry"]["schema-registry.properties"][...] = ...`. 
 Use Confluent's [Schema Registry doc](http://confluent.io/docs/current/schema-registry/docs/config.html) to figure out the 
 appropriate configuration for yourself.
+
+You can find the SysV script at `/etc/init.d/schema-registry` or `schema-registry [start|stop|restart|status]`.
 
 Attributes
 ----------

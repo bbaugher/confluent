@@ -1,9 +1,13 @@
 Confluent Cookbook
 ==================
 
+[![Cookbook Version](https://img.shields.io/cookbook/v/confluent.svg)](https://community.opscode.com/cookbooks/confluent)
+
 Installs the [Confluent](http://confluent.io/) package and can run its services,
 
  * Kafka REST
+
+ View the [Change Log](CHANGELOG.md) to see what has changed.
 
 Getting Started
 ---------------

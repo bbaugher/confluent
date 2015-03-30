@@ -8,7 +8,9 @@ template "/etc/init.d/kafka-rest" do
   mode "755"
   variables({
     :name => "kafka-rest",
-    :class => "kafkarest.Main"
+    :class => "kafkarest.Main",
+    :properties_file => "kafka-rest.properties",
+    :script => "kafka-rest"
   })
   notifies :restart, "service[kafka-rest]"
 end

@@ -5,6 +5,7 @@ Confluent Cookbook
 
 Installs the [Confluent](http://confluent.io/) package and can run its services,
 
+ * Kafka
  * Kafka REST
  * Schema Registry
 
@@ -19,8 +20,21 @@ If you include the `recipe[confluent]` this will install the Confluent package a
 
 You can find the package installed under `/opt/confluent` (by default) with the name `confluent-VERSION`.
 
-You can also find the Kafka REST configuration under `/etc/kafka-rest` and the Schema Registry configuration
-under `/etc/schema-registry`.
+You can also find the configuration under,
+
+ * /etc/kafka
+ * /etc/kafka-rest
+ * /etc/schema-registry
+
+### Kafka Service
+
+If you include the `recipe[confluent::kafka]` this will install the Confluent package and start the Kafka service. 
+
+You can configure the service using the attribtues `node["confluent"]["kafka"]["server.properties"][...] = ...`. 
+Use Confluent's [Kafka doc](http://confluent.io/docs/current/kafka/deployment.html#important-configuration-options) 
+to figure out the appropriate configuration for yourself.
+
+You can find the SysV script at `/etc/init.d/kafka-rest` or `kafka-rest [start|stop|restart|status]`.
 
 ### Kafka REST Service
 
@@ -55,6 +69,11 @@ Attributes
  * `node["confluent"]["install_dir"]` : The directory to install the Confluent package (default=`/opt/confluent`)
  * `node["confluent"]["user"]` : The user that owns the Confluent package files and runs the services
  * `node["confluent"]["group"]` : The group that owns the Confluent package files and runs the services
+
+### Kafka
+
+ * `node["confluent"]["kafka"]["server.properties"]` : A Hash of properties that configure the Kafka service (default=`{}`)
+ * `node["confluent"]["kafka"]["log4j.properties"]` : A Hash of properties that configure log4j for the Kafka service
 
 ### Kafka REST
 

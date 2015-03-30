@@ -18,13 +18,14 @@ CURRENT_WAIT=0
 TIMEOUT=60
 BIN_DIR=<%= node["confluent"]["install_dir"] %>/confluent-<%= node["confluent"]["version"] %>/bin
 NAME=<%= @name %>
+SCRIPT=<%= @script %>
 CLASS=<%= @class %>
 
 # We have to pipe STDOUT here otherwise it will print logs when running script
-START_SERVER_CMD="nohup $BIN_DIR/$NAME-start /etc/$NAME/$NAME.properties &>/dev/null &"
+START_SERVER_CMD="nohup $BIN_DIR/$SCRIPT-start /etc/$NAME/<%= @properties_file %> &>/dev/null &"
 
 # We have to pipe STDOUT here otherwise it will print logs when running script
-STOP_SERVER_CMD="$BIN_DIR/$NAME-stop &>/dev/null"
+STOP_SERVER_CMD="$BIN_DIR/$SCRIPT-stop &>/dev/null"
 
 start() {
   findPid

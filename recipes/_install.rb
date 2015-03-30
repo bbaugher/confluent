@@ -48,6 +48,30 @@ execute "chown #{node["confluent"]["user"]}:#{node["confluent"]["group"]} -R #{n
 end
 
 # Kafka Rest config files
+link "/etc/kafka" do
+  to "#{node["confluent"]["install_dir"]}/confluent-#{node["confluent"]["version"]}/etc/kafka"
+end
+
+# TODO If we make changes here we should restart the service it exists
+template "/etc/kafka/server.properties" do
+  source "properties.erb"
+  owner node["confluent"]["user"]
+  group node["confluent"]["group"]
+  mode "755"
+  variables({:properties => node["confluent"]["kafka"]["server.properties"]})
+  backup false
+end
+
+template "/etc/kafka/log4j.properties" do
+  source "properties.erb"
+  owner node["confluent"]["user"]
+  group node["confluent"]["group"]
+  mode "755"
+  variables({:properties => node["confluent"]["kafka"]["log4j.properties"]})
+  backup false
+end
+
+# Kafka Rest config files
 link "/etc/kafka-rest" do
   to "#{node["confluent"]["install_dir"]}/confluent-#{node["confluent"]["version"]}/etc/kafka-rest"
 end

@@ -24,10 +24,16 @@ suites:
       # requires an apt-get update in order to successfully run
       - recipe[apt]
       - recipe[confluent_tester]
+      - recipe[confluent::kafka]
       - recipe[confluent::kafka-rest]
       - recipe[confluent::schema-registry]
     attributes:
       confluent:
+        kafka:
+          server.properties:
+            broker.id: 0
+            zookeeper.connect: localhost:2181
+            log.dirs: /tmp/kafka-logs
         kafka-rest:
           kafka-rest.properties:
             bootstrap.servers: localhost:9092

@@ -10,3 +10,7 @@ end
 describe port(8082) do
   it { should be_listening }
 end
+
+describe file('/var/log/confluent/kafka-rest.log') do
+  it { should be_file }
+end

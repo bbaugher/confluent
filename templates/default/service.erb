@@ -22,10 +22,10 @@ SCRIPT=<%= @script %>
 CLASS=<%= @class %>
 
 # We have to pipe STDOUT here otherwise it will print logs when running script
-START_SERVER_CMD="nohup $BIN_DIR/$SCRIPT-start /etc/$NAME/<%= @properties_file %> &>/dev/null &"
+START_SERVER_CMD="nohup $BIN_DIR/$SCRIPT-start /etc/$NAME/<%= @properties_file %> &> /var/log/confluent/$NAME_service.out &"
 
 # We have to pipe STDOUT here otherwise it will print logs when running script
-STOP_SERVER_CMD="$BIN_DIR/$SCRIPT-stop &>/dev/null"
+STOP_SERVER_CMD="$BIN_DIR/$SCRIPT-stop &> /var/log/confluent/$NAME_service.out"
 
 start() {
   findPid

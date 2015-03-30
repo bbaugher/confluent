@@ -22,6 +22,12 @@ directory node["confluent"]["install_dir"] do
   mode "755"
 end
 
+directory "/var/log/confluent" do
+  owner node["confluent"]["user"]
+  group node["confluent"]["group"]
+  mode "755"
+end
+
 # Download and unzip the confluent package
 package "unzip"
 
@@ -38,6 +44,17 @@ execute "unzip -q #{confluent_package} -d #{node["confluent"]["install_dir"]}" d
   end
 end
 
+# There is a bug in 1.0 where kafka-server-start uses the wrong log4j.properties file when running kafka
+if node["confluent"]["version"] == "1.0"
+  cookbook_file "kafka-server-start" do
+    path File.join(node["confluent"]["install_dir"], "confluent-#{node["confluent"]["version"]}", "bin", "kafka-server-start")
+    owner node["confluent"]["user"]
+    group node["confluent"]["group"]
+    mode "755"
+    backup false
+  end
+end
+
 # Ensure everything is owned by the confluent user/group
 execute "chown #{node["confluent"]["user"]}:#{node["confluent"]["group"]} -R #{node["confluent"]["install_dir"]}" do
   action :run
@@ -48,7 +65,6 @@ link "/etc/kafka" do
   to "#{node["confluent"]["install_dir"]}/confluent-#{node["confluent"]["version"]}/etc/kafka"
 end
 
-# TODO If we make changes here we should restart the service it exists
 template "/etc/kafka/server.properties" do
   source "properties.erb"
   owner node["confluent"]["user"]
@@ -80,7 +96,6 @@ link "/etc/kafka-rest" do
   to "#{node["confluent"]["install_dir"]}/confluent-#{node["confluent"]["version"]}/etc/kafka-rest"
 end
 
-# TODO If we make changes here we should restart the service it exists
 template "/etc/kafka-rest/kafka-rest.properties" do
   source "properties.erb"
   owner node["confluent"]["user"]
@@ -112,7 +127,6 @@ link "/etc/schema-registry" do
   to "#{node["confluent"]["install_dir"]}/confluent-#{node["confluent"]["version"]}/etc/schema-registry"
 end
 
-# TODO If we make changes here we should restart the service it exists
 template "/etc/schema-registry/schema-registry.properties" do
   source "properties.erb"
   owner node["confluent"]["user"]

@@ -36,6 +36,8 @@ to figure out the appropriate configuration for yourself.
 
 You can find the SysV script at `/etc/init.d/kafka-rest` or `kafka-rest [start|stop|restart|status]`.
 
+You can find the logs at `/var/log/confluent/kafka.log`.
+
 ### Kafka REST Service
 
 If you include the `recipe[confluent::kafka-rest]` this will install the Confluent package and start the
@@ -47,6 +49,8 @@ appropriate configuration for yourself.
 
 You can find the SysV script at `/etc/init.d/kafka-rest` or `kafka-rest [start|stop|restart|status]`.
 
+You can find the logs at `/var/log/confluent/kafka-rest.log`.
+
 ### Schema Registry Service
 
 If you include the `recipe[confluent::schema-registry]` this will install the Confluent package and start the
@@ -57,6 +61,8 @@ Use Confluent's [Schema Registry doc](http://confluent.io/docs/current/schema-re
 appropriate configuration for yourself.
 
 You can find the SysV script at `/etc/init.d/schema-registry` or `schema-registry [start|stop|restart|status]`.
+
+You can find the logs at `/var/log/confluent/schema-registry.log`.
 
 Attributes
 ----------
@@ -73,14 +79,14 @@ Attributes
 ### Kafka
 
  * `node["confluent"]["kafka"]["server.properties"]` : A Hash of properties that configure the Kafka service (default=`{}`)
- * `node["confluent"]["kafka"]["log4j.properties"]` : A Hash of properties that configure log4j for the Kafka service
+ * `node["confluent"]["kafka"]["log4j.properties"]` : A Hash of properties that configure log4j for the Kafka service (see attributes for defaults)
 
 ### Kafka REST
 
  * `node["confluent"]["kafka-rest"]["kafka-rest.properties"]` : A Hash of properties that configure the Kafka REST service (default=`{}`)
- * `node["confluent"]["kafka-rest"]["log4j.properties"]` : A Hash of properties that configure log4j for the Kafka REST service
+ * `node["confluent"]["kafka-rest"]["log4j.properties"]` : A Hash of properties that configure log4j for the Kafka REST service (see attributes for defaults)
 
 ### Schema Registry
 
  * `node["confluent"]["schema-registry"]["schema-registry.properties"]` : A Hash of properties that configure the Schema Registry service (default=`{}`)
- * `node["confluent"]["schema-registry"]["log4j.properties"]` : A Hash of properties that configure log4j for the Schema Registry service
+ * `node["confluent"]["schema-registry"]["log4j.properties"]` : A Hash of properties that configure log4j for the Schema Registry service (see attributes for defaults)

@@ -5,19 +5,45 @@ default["confluent"]["install_dir"] = "/opt/confluent"
 default["confluent"]["user"] = "confluent"
 default["confluent"]["group"] = "confluent"
 
-# TODO: Do proper logging
-log4j_defaults = {
-  "log4j.rootLogger" => "INFO, stdout",
-  "log4j.appender.stdout" => "org.apache.log4j.ConsoleAppender",
-  "log4j.appender.stdout.layout" => "org.apache.log4j.PatternLayout",
-  "log4j.appender.stdout.layout.ConversionPattern" => "[%d] %p %m (%c:%L)%n"
-}
-
 default["confluent"]["kafka"]["server.properties"] = {}
-default["confluent"]["kafka"]["log4j.properties"] = log4j_defaults
+
+default["confluent"]["kafka"]["log4j.properties"]["log4j.rootLogger"] = "CONSOLE,ROLLINGFILE"
+default["confluent"]["kafka"]["log4j.properties"]["log4j.appender.CONSOLE"] = "org.apache.log4j.ConsoleAppender"
+default["confluent"]["kafka"]["log4j.properties"]["log4j.appender.CONSOLE.Threshold"] = "INFO"
+default["confluent"]["kafka"]["log4j.properties"]["log4j.appender.CONSOLE.layout"] = "org.apache.log4j.PatternLayout"
+default["confluent"]["kafka"]["log4j.properties"]["log4j.appender.CONSOLE.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"
+default["confluent"]["kafka"]["log4j.properties"]["log4j.appender.ROLLINGFILE"] = "org.apache.log4j.RollingFileAppender"
+default["confluent"]["kafka"]["log4j.properties"]["log4j.appender.ROLLINGFILE.Threshold"] = "INFO"
+default["confluent"]["kafka"]["log4j.properties"]["log4j.appender.ROLLINGFILE.File"] = "/var/log/confluent/kafka.log"
+default["confluent"]["kafka"]["log4j.properties"]["log4j.appender.ROLLINGFILE.MaxFileSize"] = "10MB"
+default["confluent"]["kafka"]["log4j.properties"]["log4j.appender.ROLLINGFILE.MaxBackupIndex"] = "10"
+default["confluent"]["kafka"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout"] = "org.apache.log4j.PatternLayout"
+default["confluent"]["kafka"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"
 
 default["confluent"]["kafka-rest"]["kafka-rest.properties"] = {}
-default["confluent"]["kafka-rest"]["log4j.properties"] = log4j_defaults
+default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.rootLogger"] = "CONSOLE,ROLLINGFILE"
+default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.CONSOLE"] = "org.apache.log4j.ConsoleAppender"
+default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.CONSOLE.Threshold"] = "INFO"
+default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.CONSOLE.layout"] = "org.apache.log4j.PatternLayout"
+default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.CONSOLE.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"
+default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.ROLLINGFILE"] = "org.apache.log4j.RollingFileAppender"
+default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.ROLLINGFILE.Threshold"] = "INFO"
+default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.ROLLINGFILE.File"] = "/var/log/confluent/kafka-rest.log"
+default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.ROLLINGFILE.MaxFileSize"] = "10MB"
+default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.ROLLINGFILE.MaxBackupIndex"] = "10"
+default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout"] = "org.apache.log4j.PatternLayout"
+default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"
 
 default["confluent"]["schema-registry"]["schema-registry.properties"] = {}
-default["confluent"]["schema-registry"]["log4j.properties"] = log4j_defaults
+default["confluent"]["schema-registry"]["log4j.properties"]["log4j.rootLogger"] = "CONSOLE,ROLLINGFILE"
+default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.CONSOLE"] = "org.apache.log4j.ConsoleAppender"
+default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.CONSOLE.Threshold"] = "INFO"
+default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.CONSOLE.layout"] = "org.apache.log4j.PatternLayout"
+default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.CONSOLE.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"
+default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.ROLLINGFILE"] = "org.apache.log4j.RollingFileAppender"
+default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.ROLLINGFILE.Threshold"] = "INFO"
+default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.ROLLINGFILE.File"] = "/var/log/confluent/schema-registry.log"
+default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.ROLLINGFILE.MaxFileSize"] = "10MB"
+default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.ROLLINGFILE.MaxBackupIndex"] = "10"
+default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout"] = "org.apache.log4j.PatternLayout"
+default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"

@@ -18,6 +18,8 @@ If you include the `recipe[confluent]` this will install the Confluent package a
 
 You can find the package installed under `/opt/confluent` (by default) with the name `confluent-VERSION`.
 
+You can also find the Kafka REST configuration under `/etc/kafka-rest`
+
 ### Start Kafka REST Service
 
 If you include the `recipe[confluent::kafka-rest]` this will install the Confluent package and start the

@@ -7,7 +7,7 @@ Installs the [Confluent](http://confluent.io/) package and can run its services,
 
  * Kafka REST
 
- View the [Change Log](CHANGELOG.md) to see what has changed.
+View the [Change Log](CHANGELOG.md) to see what has changed.
 
 Getting Started
 ---------------

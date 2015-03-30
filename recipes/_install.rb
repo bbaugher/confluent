@@ -32,11 +32,7 @@ remote_file confluent_package do
   backup false
 end
 
-bash "unzip confluent package" do
-  code <<-EOH
-    unzip -q #{confluent_package} -d #{node["confluent"]["install_dir"]}
-  EOH
-
+execute "unzip -q #{confluent_package} -d #{node["confluent"]["install_dir"]}" do
   not_if do
   	File.exists?(File.join(node["confluent"]["install_dir"], "confluent-#{node["confluent"]["version"]}"))
   end

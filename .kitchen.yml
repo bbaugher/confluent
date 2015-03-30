@@ -1,0 +1,33 @@
+---
+driver:
+  name: vagrant
+
+driver_config:
+  customize:
+    memory: 1024
+    cpus: 2
+    # Configure network interface to use hosts DNS resolver.  Doing this makes installing Gems and other network tasks significantly faster.
+    natdnsproxy1: 'off'
+    natdnshostresolver1: 'off'
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: centos-6.4
+  - name: ubuntu-12.04
+
+suites:
+  - name: default
+    run_list:
+      # We only include apt because of an issue installing java where ubuntu 
+      # requires an apt-get update in order to successfully run
+      - recipe[apt]
+      - recipe[apache_zookeeper]
+      - recipe[confluent_tester]
+      - recipe[confluent::kafka-rest]
+    attributes:
+      confluent:
+        kafka-rest:
+          kafka-rest.properties:
+            bootstrap.servers: localhost:9092

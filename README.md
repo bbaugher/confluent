@@ -34,7 +34,7 @@ You can configure the service using the attribtues `node["confluent"]["kafka"]["
 Use Confluent's [Kafka doc](http://confluent.io/docs/current/kafka/deployment.html#important-configuration-options) 
 to figure out the appropriate configuration for yourself.
 
-You can find the SysV script at `/etc/init.d/kafka-rest` or `kafka-rest [start|stop|restart|status]`.
+You can find the SysV script at `/etc/init.d/kafka-rest` or `service kafka-rest [start|stop|restart|status]`.
 
 You can find the logs at `/var/log/confluent/kafka.log`.
 
@@ -47,7 +47,7 @@ You can configure the service using the attribtues `node["confluent"]["kafka-res
 Use Confluent's [Kafka REST doc](http://confluent.io/docs/current/kafka-rest/docs/config.html) to figure out the 
 appropriate configuration for yourself.
 
-You can find the SysV script at `/etc/init.d/kafka-rest` or `kafka-rest [start|stop|restart|status]`.
+You can find the SysV script at `/etc/init.d/kafka-rest` or `service kafka-rest [start|stop|restart|status]`.
 
 You can find the logs at `/var/log/confluent/kafka-rest.log`.
 
@@ -60,7 +60,7 @@ You can configure the service using the attribtues `node["confluent"]["schema-re
 Use Confluent's [Schema Registry doc](http://confluent.io/docs/current/schema-registry/docs/config.html) to figure out the 
 appropriate configuration for yourself.
 
-You can find the SysV script at `/etc/init.d/schema-registry` or `schema-registry [start|stop|restart|status]`.
+You can find the SysV script at `/etc/init.d/schema-registry` or `service schema-registry [start|stop|restart|status]`.
 
 You can find the logs at `/var/log/confluent/schema-registry.log`.
 

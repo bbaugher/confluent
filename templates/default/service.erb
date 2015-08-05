@@ -22,24 +22,29 @@ SCRIPT=<%= @script %>
 CLASS=<%= @class %>
 
 # We have to pipe STDOUT here otherwise it will print logs when running script
-START_SERVER_CMD="nohup $BIN_DIR/$SCRIPT-start /etc/$NAME/<%= @properties_file %> &> /var/log/confluent/$NAME_service.out &"
+START_SERVER_CMD="$BIN_DIR/$SCRIPT-start /etc/$NAME/<%= @properties_file %> 2> /var/log/confluent/$NAME-service.out &"
 
 # We have to pipe STDOUT here otherwise it will print logs when running script
-STOP_SERVER_CMD="$BIN_DIR/$SCRIPT-stop &> /var/log/confluent/$NAME_service.out"
+STOP_SERVER_CMD="$BIN_DIR/$SCRIPT-stop 2> /var/log/confluent/$NAME-service.out"
+
+# Application environment variables
+<% @env_vars.each do |k, v| -%>
+export <%= k %>="<%= v %>"
+<% end -%>
 
 start() {
   findPid
-  
+
   if [ "" = "$FOUND_PID" ]; then
-    su -l $USER -c "$START_SERVER_CMD"
-      
+    runuser --shell=/bin/sh $USER -c "$START_SERVER_CMD"
+
     if [ $? -ne 0 ]; then
       echo "Error starting $NAME"
       exit 1
     fi
-      
+
     echo "$NAME successfully started"
-      
+
   else
     echo "$NAME is already running"
   fi
@@ -47,14 +52,14 @@ start() {
 
 stop() {
   findPid
-  
+
   if [ "" = "$FOUND_PID" ]; then
     echo "$NAME is not running"
   else
-    while [ -n "$FOUND_PID" ]; 
+    while [ -n "$FOUND_PID" ];
     do
       echo "Attempting to shutdown $NAME..."
-      su -l $USER -c "$STOP_SERVER_CMD"
+       runuser --shell=/bin/sh $USER -c "$STOP_SERVER_CMD"
 
       if [ $? -ne 0 ]; then
         echo "Error stopping $NAME"
@@ -63,7 +68,7 @@ stop() {
 
       sleep $SLEEP_TIME
       CURRENT_WAIT=$(($CURRENT_WAIT+$SLEEP_TIME))
-      
+
       if [ $CURRENT_WAIT -gt $TIMEOUT ]; then
         echo "Timed out waiting for $NAME to stop"
         exit 1
@@ -72,7 +77,7 @@ stop() {
       findPid
     done
   fi
-  
+
 }
 
 status() {
@@ -80,7 +85,7 @@ status() {
   if [ -z "$FOUND_PID" ]; then
     echo "$NAME is not running" ; exit 1
   else
-    echo "$NAME is running : $FOUND_PID" 
+    echo "$NAME is running : $FOUND_PID"
   fi
 }
 

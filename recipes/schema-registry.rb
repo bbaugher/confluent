@@ -10,7 +10,8 @@ template "/etc/init.d/schema-registry" do
     :name => "schema-registry",
     :class => "io.confluent.kafka.schemaregistry.rest.Main",
     :properties_file => "schema-registry.properties",
-    :script => "schema-registry"
+    :script => "schema-registry",
+    :env_vars => node["confluent"]["schema-registry"]["env_vars"]
   })
   notifies :restart, "service[schema-registry]"
 end

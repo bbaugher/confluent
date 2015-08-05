@@ -28,10 +28,10 @@ You can also find the configuration under,
 
 ### Kafka Service
 
-If you include the `recipe[confluent::kafka]` this will install the Confluent package and start the Kafka service. 
+If you include the `recipe[confluent::kafka]` this will install the Confluent package and start the Kafka service.
 
-You can configure the service using the attribtues `node["confluent"]["kafka"]["server.properties"][...] = ...`. 
-Use Confluent's [Kafka doc](http://confluent.io/docs/current/kafka/deployment.html#important-configuration-options) 
+You can configure the service using the attribtues `node["confluent"]["kafka"]["server.properties"][...] = ...`.
+Use Confluent's [Kafka doc](http://confluent.io/docs/current/kafka/deployment.html#important-configuration-options)
 to figure out the appropriate configuration for yourself.
 
 You can find the SysV script at `/etc/init.d/kafka-rest` or `service kafka-rest [start|stop|restart|status]`.
@@ -41,10 +41,10 @@ You can find the logs at `/var/log/confluent/kafka.log`.
 ### Kafka REST Service
 
 If you include the `recipe[confluent::kafka-rest]` this will install the Confluent package and start the
-Kafka REST service. 
+Kafka REST service.
 
-You can configure the service using the attribtues `node["confluent"]["kafka-rest"]["kafka-rest.properties"][...] = ...`. 
-Use Confluent's [Kafka REST doc](http://confluent.io/docs/current/kafka-rest/docs/config.html) to figure out the 
+You can configure the service using the attribtues `node["confluent"]["kafka-rest"]["kafka-rest.properties"][...] = ...`.
+Use Confluent's [Kafka REST doc](http://confluent.io/docs/current/kafka-rest/docs/config.html) to figure out the
 appropriate configuration for yourself.
 
 You can find the SysV script at `/etc/init.d/kafka-rest` or `service kafka-rest [start|stop|restart|status]`.
@@ -54,10 +54,10 @@ You can find the logs at `/var/log/confluent/kafka-rest.log`.
 ### Schema Registry Service
 
 If you include the `recipe[confluent::schema-registry]` this will install the Confluent package and start the
-Schema Registry service. 
+Schema Registry service.
 
-You can configure the service using the attribtues `node["confluent"]["schema-registry"]["schema-registry.properties"][...] = ...`. 
-Use Confluent's [Schema Registry doc](http://confluent.io/docs/current/schema-registry/docs/config.html) to figure out the 
+You can configure the service using the attribtues `node["confluent"]["schema-registry"]["schema-registry.properties"][...] = ...`.
+Use Confluent's [Schema Registry doc](http://confluent.io/docs/current/schema-registry/docs/config.html) to figure out the
 appropriate configuration for yourself.
 
 You can find the SysV script at `/etc/init.d/schema-registry` or `service schema-registry [start|stop|restart|status]`.
@@ -79,14 +79,17 @@ Attributes
 ### Kafka
 
  * `node["confluent"]["kafka"]["server.properties"]` : A Hash of properties that configure the Kafka service (default=`{}`)
+ * `node["confluent"]["kafka"]["env_vars"]` : A Hash of environment variables applied when running the service
  * `node["confluent"]["kafka"]["log4j.properties"]` : A Hash of properties that configure log4j for the Kafka service (see attributes for defaults)
 
 ### Kafka REST
 
  * `node["confluent"]["kafka-rest"]["kafka-rest.properties"]` : A Hash of properties that configure the Kafka REST service (default=`{}`)
+ * `node["confluent"]["kafka-rest"]["env_vars"]` : A Hash of environment variables applied when running the service
  * `node["confluent"]["kafka-rest"]["log4j.properties"]` : A Hash of properties that configure log4j for the Kafka REST service (see attributes for defaults)
 
 ### Schema Registry
 
  * `node["confluent"]["schema-registry"]["schema-registry.properties"]` : A Hash of properties that configure the Schema Registry service (default=`{}`)
+ * `node["confluent"]["schema-registry"]["env_vars"]` : A Hash of environment variables applied when running the service
  * `node["confluent"]["schema-registry"]["log4j.properties"]` : A Hash of properties that configure log4j for the Schema Registry service (see attributes for defaults)

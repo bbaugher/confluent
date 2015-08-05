@@ -8,11 +8,10 @@ end
 
 # setup confluent user
 user node["confluent"]["user"] do
-  comment "Confluent user"
+  comment "Confluent service user"
   gid node["confluent"]["group"]
-  shell "/bin/bash"
-  home "/home/#{node["confluent"]["user"]}"
-  supports :manage_home => true
+  shell   '/bin/false'
+  system  true
 end
 
 # create confluent install directory

@@ -6,6 +6,7 @@ default["confluent"]["user"] = "confluent"
 default["confluent"]["group"] = "confluent"
 
 default["confluent"]["kafka"]["server.properties"] = {}
+default["confluent"]["kafka"]["env_vars"] = {}
 
 default["confluent"]["kafka"]["log4j.properties"]["log4j.rootLogger"] = "CONSOLE,ROLLINGFILE"
 default["confluent"]["kafka"]["log4j.properties"]["log4j.appender.CONSOLE"] = "org.apache.log4j.ConsoleAppender"
@@ -21,6 +22,8 @@ default["confluent"]["kafka"]["log4j.properties"]["log4j.appender.ROLLINGFILE.la
 default["confluent"]["kafka"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"
 
 default["confluent"]["kafka-rest"]["kafka-rest.properties"] = {}
+default["confluent"]["kafka-rest"]["env_vars"] = {}
+
 default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.rootLogger"] = "CONSOLE,ROLLINGFILE"
 default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.CONSOLE"] = "org.apache.log4j.ConsoleAppender"
 default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.CONSOLE.Threshold"] = "INFO"
@@ -35,6 +38,8 @@ default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.ROLLINGFI
 default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"
 
 default["confluent"]["schema-registry"]["schema-registry.properties"] = {}
+default["confluent"]["schema-registry"]["env_vars"] = {}
+
 default["confluent"]["schema-registry"]["log4j.properties"]["log4j.rootLogger"] = "CONSOLE,ROLLINGFILE"
 default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.CONSOLE"] = "org.apache.log4j.ConsoleAppender"
 default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.CONSOLE.Threshold"] = "INFO"

@@ -10,7 +10,8 @@ template "/etc/init.d/kafka" do
     :name => "kafka",
     :class => "kafka.Kafka",
     :properties_file => "server.properties",
-    :script => "kafka-server"
+    :script => "kafka-server",
+    :env_vars => node["confluent"]["kafka"]["env_vars"]
   })
   notifies :restart, "service[kafka]"
 end

@@ -3,11 +3,13 @@ include_recipe "java"
 
 # setup confluent group
 group node["confluent"]["group"] do
+  gid node['confluent']['uid'] if node['confluent']['uid'].exists?
   action :create
 end
 
 # setup confluent user
 user node["confluent"]["user"] do
+  uid node['confluent']['uid'] if node['confluent']['uid'].exists?
   comment "Confluent service user"
   gid node["confluent"]["group"]
   shell   '/bin/false'
@@ -43,15 +45,14 @@ execute "unzip -q #{confluent_package} -d #{node["confluent"]["install_dir"]}" d
   end
 end
 
-# There is a bug in 1.0 where kafka-server-start uses the wrong log4j.properties file when running kafka
-if node["confluent"]["version"] == "1.0"
-  cookbook_file "kafka-server-start" do
-    path File.join(node["confluent"]["install_dir"], "confluent-#{node["confluent"]["version"]}", "bin", "kafka-server-start")
-    owner node["confluent"]["user"]
-    group node["confluent"]["group"]
-    mode "755"
-    backup false
-  end
+cookbook_file "kafka-server-start" do
+  path File.join(node["confluent"]["install_dir"], "confluent-#{node["confluent"]["version"]}", "bin", "kafka-server-start")
+  owner node["confluent"]["user"]
+  group node["confluent"]["group"]
+  mode "755"
+  # There is a bug in 1.0 where kafka-server-start uses the wrong log4j.properties file when running kafka
+  not_if { node["confluent"]["version"] == "1.0" }
+  backup false
 end
 
 # Ensure everything is owned by the confluent user/group

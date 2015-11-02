@@ -3,13 +3,13 @@ include_recipe "java"
 
 # setup confluent group
 group node["confluent"]["group"] do
-  gid node['confluent']['uid'] if node['confluent']['uid'].exists?
+  gid node['confluent']['uid'] if node['confluent']['uid']
   action :create
 end
 
 # setup confluent user
 user node["confluent"]["user"] do
-  uid node['confluent']['uid'] if node['confluent']['uid'].exists?
+  uid node['confluent']['uid'] if node['confluent']['uid']
   comment "Confluent service user"
   gid node["confluent"]["group"]
   shell   '/bin/false'

@@ -5,7 +5,7 @@ include_recipe "java"
 
 # setup confluent group
 group node["confluent"]["group"] do
-  gid node['confluent']['uid'] if node['confluent']['uid']
+  gid node['confluent']['gid'] if node['confluent']['gid']
   action :create
 end
 

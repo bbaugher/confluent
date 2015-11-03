@@ -74,7 +74,9 @@ Attributes
  * `node["confluent"]["artifact_url"]` : The URL to the Confluent package to install. This is generated using the `version` and `scala_version` attributes. It downloads from `packages.confluent.io`.
  * `node["confluent"]["install_dir"]` : The directory to install the Confluent package (default=`/opt/confluent`)
  * `node["confluent"]["user"]` : The user that owns the Confluent package files and runs the services (default=`confluent`)
+ * `node["confluent"]["uid"]` : optional staticly assign a uid for above user (default=`unset` picks form system config)
  * `node["confluent"]["group"]` : The group that owns the Confluent package files and runs the services (default=`confluent`)
+ * `node["confluent"]["gid"]` : optional staticly assign a gid for above group (default=`unset` picks form system config)
 
 ### Kafka
 

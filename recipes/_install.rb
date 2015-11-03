@@ -1,3 +1,5 @@
+set_broker_id
+set_zookeeper_connect
 
 include_recipe "java"
 

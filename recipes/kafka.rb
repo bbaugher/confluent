@@ -1,6 +1,3 @@
-set_broker_id
-set_zookeeper_connect
-
 include_recipe "confluent::_install"
 
 template "/etc/init.d/kafka" do

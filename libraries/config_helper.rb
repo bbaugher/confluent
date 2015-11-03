@@ -23,7 +23,7 @@ def set_broker_id
 
     if broker_id.nil?
       Chef::Log.error("Unable to find #{node['fqdn']}, #{node['ipaddress']} or "\
-                      "#{node['hostname']} in node['kafka']['brokers'] : #{node['kafka']['brokers']}"
+                      "#{node['hostname']} in node['kafka']['brokers'] : #{node['confluent']['kafka']['brokers']}"
                      )
     else
       node.default['confluent']['kafka']['server.properties']['broker.id'] = broker_id + 1

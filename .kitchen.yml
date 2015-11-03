@@ -31,7 +31,7 @@ suites:
     attributes:
       confluent:
         kafka:
-          brokers: ['default-ubuntu-1404', 'default-centos-6.4', 'default-ubuntu-12.04']
+          brokers: ['default-ubuntu-1404', 'default-centos-64', 'default-ubuntu-1204']
           zookeepers: ['localhost:2181']
           server.properties:
             log.dirs: /tmp/kafka-logs

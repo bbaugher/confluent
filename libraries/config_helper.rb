@@ -27,7 +27,7 @@ def set_broker_id
                      )
     else
       node.default['confluent']['kafka']['server.properties']['broker.id'] = broker_id + 1
-      Chef::Log.error("SET BROKER!! #{node['confluent']['kafka']['server.properties']['broker.id']}")
+      Chef::Log.debug("BROKER SET: #{node['confluent']['kafka']['server.properties']['broker.id']}")
       return
     end
   end
@@ -37,7 +37,7 @@ end
 
 def set_zookeeper_connect
   if node['confluent']['kafka']['server.properties'].key?('zookeeper.connect')
-    Chef::Log.error(
+    Chef::Log.info(
       "broker hard set to '#{node['confluent']['kafka']['server.properties']['zookeeper.connect']}' "\
       'in server.properties node object'
     )

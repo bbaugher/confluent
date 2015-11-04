@@ -84,7 +84,8 @@ Attributes
  * `node["confluent"]["kafka"]["env_vars"]` : A Hash of environment variables applied when running the service
  * `node["confluent"]["kafka"]["log4j.properties"]` : A Hash of properties that configure log4j for the Kafka service (see attributes for defaults)
  * `node['confluent']['kafka']['brokers']` : A single broker String or List of brokers by hostname, fqdn, or ipaddress
- * `node['confluent']['kafka']['zookeepers']` : A list of zookeeper hostname:port's to add to kafka config
+ * `node['confluent']['kafka']['zookeepers']` : A list of zookeeper hostname:port's to add to kafka config (default=`nil`)
+ * `node['confluent']['kafka']['zookeepers_chroot']` : An optional list of zookeeper hostname:port/chroot's to add to kafka config (default=`nil`)
 
 ### Kafka REST
 

@@ -19,7 +19,6 @@ describe 'confluent::default' do
         node.set["confluent"]["schema-registry"]["log4j.properties"]["key"] = "log3"
         node.set['confluent']['kafka']['server.properties']['broker.id'] = 1
         node.set['confluent']['kafka']['server.properties']['zookeeper.connect'] = 'chefspechost:2181'
-#      node.set['confluent']['kafka']['zookeepers'] = 'testhost.chefspec'
       end
     end
 

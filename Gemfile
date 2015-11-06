@@ -1,15 +1,16 @@
 source 'https://rubygems.org'
 
+gem 'rake'
+
 group :travis do
-  gem 'rake'
   gem 'rspec'
   gem 'chefspec'
   gem 'berkshelf'
   gem 'foodcritic'
+  gem 'rubocop'
 end
 
 group :release do
   gem 'stove'
-  gem 'rake'
   gem 'octokit'
 end

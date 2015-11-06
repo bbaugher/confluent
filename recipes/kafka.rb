@@ -1,4 +1,3 @@
-
 include_recipe "confluent::_install"
 
 template "/etc/init.d/kafka" do

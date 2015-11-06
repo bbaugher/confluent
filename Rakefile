@@ -8,38 +8,38 @@ REPO = "bbaugher/confluent"
 
 task :release do
   version = cookbook_version
-  
+ 
   # Update change log
   puts "Updating change log ..."
   update_change_log version
   puts "Change log updated!"
-  
+ 
   # Share the cookbook
   puts "Sharing cookbook ..."
   run_command "stove --no-git --username bbaugher --key ~/.chef/bbaugher.pem"
   puts "Shared cookbook!"
- 
+
   # Tag the release
   puts "Tagging the #{version} release ..."
   run_command "git tag -a #{version} -m 'Released #{version}'"
   run_command "git push origin #{version}"
   puts "Release tagged!"
-  
+ 
   # Bump version
   versions = version.split "."
   versions[1] = versions[1].to_i + 1
-  
+ 
   # Reset bug number if available
   if versions.size == 3
     versions[2] = 0
   end
-  
+ 
   new_version = versions.join "."
-  
+ 
   puts "Updating version from #{version} to #{new_version} ..."
   update_cookbook_version new_version
   puts "Version updated!"
-  
+ 
   # Commit the updated VERSION file
   puts "Commiting the new version ..."
   run_command "git add metadata.rb"
@@ -78,6 +78,68 @@ task :build_change_log do
     change_log.close
   end
 end
+
+# Style tests. Rubocop and Foodcritic
+namespace :style do
+  begin
+    require 'foodcritic'
+
+    desc 'Run Chef style checks'
+    task :foodcritic do
+      FoodCritic::Rake::LintTask.new(:chef) do |t|
+        puts 'Running Foodcritic...'
+        t.options = {
+          fail_tags: ['any']
+        }
+      end
+    end
+  rescue LoadError
+    puts '>>>>> foodcritic gem not loaded, omitting tasks' unless ENV['CI']
+  end
+
+  begin
+    require 'rubocop/rake_task'
+    desc 'Run Ruby style checks'
+    RuboCop::RakeTask.new(:ruby)
+  rescue LoadError
+    puts '>>>>> Rubocop gem not loaded, omitting tasks' unless ENV['CI']
+  end
+end
+
+namespace :unit do
+  begin
+    require 'rspec/core/rake_task'
+    desc 'Runs specs with chefspec.'
+    RSpec::Core::RakeTask.new(:rspec)
+  rescue LoadError
+    puts '>>>>> chefspec gem not loaded, omitting tasks' unless ENV['CI']
+  end
+end
+
+# Integration tests. Kitchen.ci
+namespace :integration do
+  begin
+    desc 'Run Test Kitchen integration tests'
+    task :kitchen do
+      require 'kitchen'
+      Kitchen.logger = Kitchen.default_file_logger
+      Kitchen::Config.new.instances.each do |instance|
+        instance.test(:always)
+      end
+    end
+  rescue LoadError
+    puts '>>>>> kitchen gem not loaded, omitting tasks' unless ENV['CI']
+  end
+end
+
+desc 'Run all style checks'
+task style: ['style:foodcritic', 'style:ruby']
+
+desc 'Run all unit tests'
+task unit: ['unit:rspec']
+
+desc 'Run all tests including test Kitchen with Vagrant'
+task default: ['unit', 'style', 'integration:kitchen']
 
 def cookbook_version
   # Read in the metadata file
@@ -183,7 +245,7 @@ end
 
 def run_command command
   output = `#{command}`
-  unless $?.success?
+  unless $CHILD_STATUS.success? 
     raise "Command : [#{command}] failed.\nOutput : \n#{output}"
   end
 end

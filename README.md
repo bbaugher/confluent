@@ -74,13 +74,18 @@ Attributes
  * `node["confluent"]["artifact_url"]` : The URL to the Confluent package to install. This is generated using the `version` and `scala_version` attributes. It downloads from `packages.confluent.io`.
  * `node["confluent"]["install_dir"]` : The directory to install the Confluent package (default=`/opt/confluent`)
  * `node["confluent"]["user"]` : The user that owns the Confluent package files and runs the services (default=`confluent`)
+ * `node["confluent"]["uid"]` : optional staticly assign a uid for above user (default=`unset` picks form system config)
  * `node["confluent"]["group"]` : The group that owns the Confluent package files and runs the services (default=`confluent`)
+ * `node["confluent"]["gid"]` : optional staticly assign a gid for above group (default=`unset` picks form system config)
 
 ### Kafka
 
  * `node["confluent"]["kafka"]["server.properties"]` : A Hash of properties that configure the Kafka service (default=`{}`)
  * `node["confluent"]["kafka"]["env_vars"]` : A Hash of environment variables applied when running the service
  * `node["confluent"]["kafka"]["log4j.properties"]` : A Hash of properties that configure log4j for the Kafka service (see attributes for defaults)
+ * `node['confluent']['kafka']['brokers']` : A single broker String or List of brokers by hostname, fqdn, or ipaddress
+ * `node['confluent']['kafka']['zookeepers']` : A list of zookeeper hostname:port's to add to kafka config (default=`nil`)
+ * `node['confluent']['kafka']['zookeepers_chroot']` : An optional list of zookeeper hostname:port/chroot's to add to kafka config (default=`nil`)
 
 ### Kafka REST
 
@@ -93,3 +98,14 @@ Attributes
  * `node["confluent"]["schema-registry"]["schema-registry.properties"]` : A Hash of properties that configure the Schema Registry service (default=`{}`)
  * `node["confluent"]["schema-registry"]["env_vars"]` : A Hash of environment variables applied when running the service
  * `node["confluent"]["schema-registry"]["log4j.properties"]` : A Hash of properties that configure log4j for the Schema Registry service (see attributes for defaults)
+
+Testing
+-------
+
+### Style
+* `rake style` : runs foodcritic and rubocop
+  * todo in .rubocop.yml
+* `rake unit` : runs chefspec tests form ./spec
+  * todo from untouched resources
+* `rake kitchen` : runs kitchen tests
+  * problem with gem version conflict in Rakefile.  Run kitchen from command line: `kitchen test`

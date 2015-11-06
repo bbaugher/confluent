@@ -2,6 +2,7 @@ Confluent Cookbook
 ==================
 
 [![Cookbook Version](https://img.shields.io/cookbook/v/confluent.svg)](https://community.opscode.com/cookbooks/confluent)
+[![Build Status](https://travis-ci.org/bbaugher/confluent.svg?branch=master)](https://travis-ci.org/bbaugher/confluent)
 
 Installs the [Confluent](http://confluent.io/) package and can run its services,
 

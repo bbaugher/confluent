@@ -1,0 +1,11 @@
+language: ruby
+bundler_args: --without release
+cache: bundler
+sudo: false
+rvm:
+  - 2.1.2
+script:
+# We cannot run integration tests on travis since that uses vagrant/virtualbox and
+# is not available in travis ci
+  - bundle exec unit
+  - bundle exec style

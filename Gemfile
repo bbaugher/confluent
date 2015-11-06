@@ -1,10 +1,15 @@
 source 'https://rubygems.org'
 
-gem 'berkshelf'
-
-group :testing do
-  gem 'berkshelf', '~> 3.0'
-  gem 'test-kitchen', '~> 1.2.1'
-  gem 'kitchen-vagrant', '~> 0.15.0'
+group :travis do
+  gem 'rake'
+  gem 'rspec'
+  gem 'chefspec'
+  gem 'berkshelf'
   gem 'foodcritic'
+end
+
+group :release do
+  gem 'stove'
+  gem 'rake'
+  gem 'octokit'
 end

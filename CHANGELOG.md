@@ -1,6 +1,16 @@
 Change Log
 ==========
 
+[0.3.0 - 11-06-2015](https://github.com/bbaugher/confluent/issues?milestone=3&state=closed)
+-------------------------------------------------------------------------------------------
+
+  * [Enhancement] [Issue-9](https://github.com/bbaugher/confluent/issues/9) : Add tests and discoverable brokers
+
+[0.3.0 - 11-06-2015](https://github.com/bbaugher/confluent/issues?milestone=3&state=closed)
+-------------------------------------------------------------------------------------------
+
+  * [Enhancement] [Issue-9](https://github.com/bbaugher/confluent/issues/9) : Add tests and discoverable brokers
+
 [0.2.0 - 08-05-2015](https://github.com/bbaugher/confluent/issues?milestone=2&state=closed)
 -------------------------------------------------------------------------------------------
 

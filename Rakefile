@@ -1,5 +1,5 @@
 # coding: UTF-8
-require 'octokit'
+require "English"
 
 VERSION_WITH_NAME_REGEX = /version\s*'\d+\.\d+\.\d+'/
 VERSION_REGEX = /\d+\.\d+\.\d+/
@@ -7,6 +7,8 @@ VERSION_REGEX = /\d+\.\d+\.\d+/
 REPO = "bbaugher/confluent"
 
 task :release do
+  require 'octokit'
+
   version = cookbook_version
 
   # Update change log
@@ -245,7 +247,7 @@ end
 
 def run_command command
   output = `#{command}`
-  unless $?.success? 
+  unless $CHILD_STATUS.success?
     raise "Command : [#{command}] failed.\nOutput : \n#{output}"
   end
 end

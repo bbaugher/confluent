@@ -1,5 +1,5 @@
 language: ruby
-bundler_args: --without release
+bundler_args: --with travis
 cache: bundler
 sudo: false
 rvm:

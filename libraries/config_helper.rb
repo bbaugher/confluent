@@ -17,8 +17,8 @@ def set_broker_id
   else
     broker_id = brokers.index do |broker|
       broker == node['fqdn'] ||
-      broker == node['ipaddress'] ||
-      broker == node['hostname']
+        broker == node['ipaddress'] ||
+        broker == node['hostname']
     end
 
     if broker_id.nil?

@@ -135,7 +135,7 @@ Style/SignalException:
 
 # Offense count: 12
 # Cop supports --auto-correct.
-Style/SingleSpaceBeforeFirstArg:
+Style/SpaceBeforeFirstArg:
   Exclude:
     - 'metadata.rb'
     - 'recipes/_install.rb'

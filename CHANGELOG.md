@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+[1.0.0 - 03-10-2016](https://github.com/bbaugher/confluent/issues?milestone=4&state=closed)
+-------------------------------------------------------------------------------------------
+
+  * [Enhancement] [Issue-10](https://github.com/bbaugher/confluent/issues/10) : Update to confluent 2.0
+
 [0.3.0 - 11-06-2015](https://github.com/bbaugher/confluent/issues?milestone=3&state=closed)
 -------------------------------------------------------------------------------------------
 

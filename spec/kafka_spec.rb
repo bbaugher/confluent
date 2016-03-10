@@ -24,4 +24,12 @@ describe 'confluent::kafka' do
     expect(log4j_template).to notify('service[kafka]').to(:restart)
   end
 
+  it 'should configure kafka' do
+    chef_run.converge(described_recipe)
+    expect(chef_run).to render_file('/etc/kafka/server.properties').with_content('broker.id=1')
+    expect(chef_run).to render_file('/etc/kafka/server.properties').with_content('zookeeper.connect=testhost.chefspec')
+    expect(chef_run).to render_file('/etc/kafka/server.properties').with_content('key=value1')
+    expect(chef_run).to render_file('/etc/kafka/log4j.properties').with_content('key=log1')
+  end
+
 end

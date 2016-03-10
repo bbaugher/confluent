@@ -1,6 +1,10 @@
-default["confluent"]["version"] = "1.0"
-default["confluent"]["scala_version"] = "2.10.4"
-default["confluent"]["artifact_url"] = File.join("http://packages.confluent.io/archive", node["confluent"]["version"], "confluent-#{node["confluent"]["version"]}-#{node["confluent"]["scala_version"]}.zip")
+default["confluent"]["version"] = "2.0.1"
+default["confluent"]["scala_version"] = "2.11.7"
+
+version_numbers = node["confluent"]["version"].split(".")
+archive_version = "#{version_numbers[0]}.#{version_numbers[1]}"
+
+default["confluent"]["artifact_url"] = File.join("http://packages.confluent.io/archive", archive_version, "confluent-#{node["confluent"]["version"]}-#{node["confluent"]["scala_version"]}.zip")
 default["confluent"]["install_dir"] = "/opt/confluent"
 default["confluent"]["user"] = "confluent"
 default["confluent"]["group"] = "confluent"
@@ -9,6 +13,7 @@ default["confluent"]["kafka"]["server.properties"] = {}
 default['confluent']['kafka']['zookeepers'] = nil
 default['confluent']['kafka']['brokers'] = nil
 default["confluent"]["kafka"]["env_vars"] = {}
+default["confluent"]["kafka"]["class"] = "kafka.Kafka"
 
 default["confluent"]["kafka"]["log4j.properties"]["log4j.rootLogger"] = "CONSOLE,ROLLINGFILE"
 default["confluent"]["kafka"]["log4j.properties"]["log4j.appender.CONSOLE"] = "org.apache.log4j.ConsoleAppender"
@@ -25,6 +30,7 @@ default["confluent"]["kafka"]["log4j.properties"]["log4j.appender.ROLLINGFILE.la
 
 default["confluent"]["kafka-rest"]["kafka-rest.properties"] = {}
 default["confluent"]["kafka-rest"]["env_vars"] = {}
+default["confluent"]["kafka-rest"]["class"] = "kafkarest.KafkaRestMain"
 
 default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.rootLogger"] = "CONSOLE,ROLLINGFILE"
 default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.CONSOLE"] = "org.apache.log4j.ConsoleAppender"
@@ -41,6 +47,7 @@ default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.ROLLINGFI
 
 default["confluent"]["schema-registry"]["schema-registry.properties"] = {}
 default["confluent"]["schema-registry"]["env_vars"] = {}
+default["confluent"]["schema-registry"]["class"] = "io.confluent.kafka.schemaregistry.rest.Main"
 
 default["confluent"]["schema-registry"]["log4j.properties"]["log4j.rootLogger"] = "CONSOLE,ROLLINGFILE"
 default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.CONSOLE"] = "org.apache.log4j.ConsoleAppender"

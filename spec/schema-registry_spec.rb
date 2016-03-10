@@ -10,8 +10,6 @@ describe 'confluent::schema-registry' do
     ChefSpec::SoloRunner.new do |node|
       node.set["confluent"]["schema-registry"]["schema-registry.properties"]["key"] = "value1"
       node.set["confluent"]["schema-registry"]["log4j.properties"]["key"] = "log1"
-      node.set['confluent']['kafka']['server.properties']['broker.id'] = 1
-      node.set['confluent']['kafka']['zookeepers'] = 'testhost.chefspec'
     end
   end
 
@@ -22,6 +20,12 @@ describe 'confluent::schema-registry' do
     chef_run.converge(described_recipe)
     expect(schema_template).to notify('service[schema-registry]').to(:restart)
     expect(log4j_template).to notify('service[schema-registry]').to(:restart)
+  end
+
+  it 'should configure schema-registry' do
+    chef_run.converge(described_recipe)
+    expect(chef_run).to render_file('/etc/schema-registry/schema-registry.properties').with_content('key=value1')
+    expect(chef_run).to render_file('/etc/schema-registry/log4j.properties').with_content('key=log1')
   end
 
 end

@@ -30,13 +30,15 @@ suites:
     attributes:
       confluent:
         kafka:
-          brokers: ['default-ubuntu-1404', 'default-centos-64', 'default-ubuntu-1204']
+          brokers: ['default-ubuntu-1404', 'default-centos-64']
           zookeepers: ['localhost:2181']
           server.properties:
             log.dirs: /tmp/kafka-logs
         kafka-rest:
           kafka-rest.properties:
-            bootstrap.servers: localhost:9092
+            zookeeper.connect: localhost:2181
         schema-registry:
           schema-registry.properties:
             kafkastore.connection.url: localhost:2181
+      java:
+        jdk_version: 7

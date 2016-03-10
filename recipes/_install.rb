@@ -1,6 +1,3 @@
-set_broker_id
-set_zookeeper_connect
-
 include_recipe "java"
 
 # setup confluent group
@@ -57,6 +54,16 @@ cookbook_file "kafka-server-start" do
   backup false
 end
 
+cookbook_file "kafka-server-stop" do
+  path File.join(node["confluent"]["install_dir"], "confluent-#{node["confluent"]["version"]}", "bin", "kafka-server-stop")
+  owner node["confluent"]["user"]
+  group node["confluent"]["group"]
+  mode "755"
+  # There is a bug in 2.0.0/2.0.1 where kafka-server-stop uses the looks for the wrong class to stop the process
+  only_if { node["confluent"]["version"] == "2.0.0" || node["confluent"]["version"] == "2.0.1" }
+  backup false
+end
+
 # Ensure everything is owned by the confluent user/group
 execute "chown #{node["confluent"]["user"]}:#{node["confluent"]["group"]} -R #{node["confluent"]["install_dir"]}" do
   action :run
@@ -67,90 +74,7 @@ link "/etc/kafka" do
   to "#{node["confluent"]["install_dir"]}/confluent-#{node["confluent"]["version"]}/etc/kafka"
 end
 
-template "/etc/kafka/server.properties" do
-  source "properties.erb"
-  owner node["confluent"]["user"]
-  group node["confluent"]["group"]
-  mode "755"
-  variables({:properties => node["confluent"]["kafka"]["server.properties"]})
-  backup false
-
-  if node.run_list.include?("recipe[confluent::kafka]")
-    notifies :restart, "service[kafka]"
-  end
-end
-
-template "/etc/kafka/log4j.properties" do
-  source "properties.erb"
-  owner node["confluent"]["user"]
-  group node["confluent"]["group"]
-  mode "755"
-  variables({:properties => node["confluent"]["kafka"]["log4j.properties"]})
-  backup false
-
-  if node.run_list.include?("recipe[confluent::kafka]")
-    notifies :restart, "service[kafka]"
-  end
-end
-
-# Kafka Rest config files
-link "/etc/kafka-rest" do
-  to "#{node["confluent"]["install_dir"]}/confluent-#{node["confluent"]["version"]}/etc/kafka-rest"
-end
-
-template "/etc/kafka-rest/kafka-rest.properties" do
-  source "properties.erb"
-  owner node["confluent"]["user"]
-  group node["confluent"]["group"]
-  mode "755"
-  variables({:properties => node["confluent"]["kafka-rest"]["kafka-rest.properties"]})
-  backup false
-
-  if node.run_list.include?("recipe[confluent::kafka-rest]")
-    notifies :restart, "service[kafka-rest]"
-  end
-end
-
-template "/etc/kafka-rest/log4j.properties" do
-  source "properties.erb"
-  owner node["confluent"]["user"]
-  group node["confluent"]["group"]
-  mode "755"
-  variables({:properties => node["confluent"]["kafka-rest"]["log4j.properties"]})
-  backup false
-
-  if node.run_list.include?("recipe[confluent::kafka-rest]")
-    notifies :restart, "service[kafka-rest]"
-  end
-end
-
 # Schema registry config files
 link "/etc/schema-registry" do
   to "#{node["confluent"]["install_dir"]}/confluent-#{node["confluent"]["version"]}/etc/schema-registry"
-end
-
-template "/etc/schema-registry/schema-registry.properties" do
-  source "properties.erb"
-  owner node["confluent"]["user"]
-  group node["confluent"]["group"]
-  mode "755"
-  variables({:properties => node["confluent"]["schema-registry"]["schema-registry.properties"]})
-  backup false
-
-  if node.run_list.include?("recipe[confluent::schema-registry]")
-    notifies :restart, "service[schema-registry]"
-  end
-end
-
-template "/etc/schema-registry/log4j.properties" do
-  source "properties.erb"
-  owner node["confluent"]["user"]
-  group node["confluent"]["group"]
-  mode "755"
-  variables({:properties => node["confluent"]["schema-registry"]["log4j.properties"]})
-  backup false
-
-  if node.run_list.include?("recipe[confluent::schema-registry]")
-    notifies :restart, "service[schema-registry]"
-  end
 end

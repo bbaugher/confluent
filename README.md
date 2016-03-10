@@ -15,7 +15,7 @@ View the [Change Log](CHANGELOG.md) to see what has changed.
 Getting Started
 ---------------
 
-### Install/Configure Confluent Package
+### Install Confluent Package
 
 If you include the `recipe[confluent]` this will install the Confluent package and nothing else.
 
@@ -29,7 +29,7 @@ You can also find the configuration under,
 
 ### Kafka Service
 
-If you include the `recipe[confluent::kafka]` this will install the Confluent package and start the Kafka service.
+If you include the `recipe[confluent::kafka]` this will install the Confluent package, configure and start the Kafka service.
 
 You can configure the service using the attribtues `node["confluent"]["kafka"]["server.properties"][...] = ...`.
 Use Confluent's [Kafka doc](http://confluent.io/docs/current/kafka/deployment.html#important-configuration-options)
@@ -41,7 +41,7 @@ You can find the logs at `/var/log/confluent/kafka.log`.
 
 ### Kafka REST Service
 
-If you include the `recipe[confluent::kafka-rest]` this will install the Confluent package and start the
+If you include the `recipe[confluent::kafka-rest]` this will install the Confluent package, configure and start the
 Kafka REST service.
 
 You can configure the service using the attribtues `node["confluent"]["kafka-rest"]["kafka-rest.properties"][...] = ...`.
@@ -54,7 +54,7 @@ You can find the logs at `/var/log/confluent/kafka-rest.log`.
 
 ### Schema Registry Service
 
-If you include the `recipe[confluent::schema-registry]` this will install the Confluent package and start the
+If you include the `recipe[confluent::schema-registry]` this will install the Confluent package, configure and start the
 Schema Registry service.
 
 You can configure the service using the attribtues `node["confluent"]["schema-registry"]["schema-registry.properties"][...] = ...`.

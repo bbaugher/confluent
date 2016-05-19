@@ -47,7 +47,7 @@ default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.ROLLINGFI
 
 default["confluent"]["schema-registry"]["schema-registry.properties"] = {}
 default["confluent"]["schema-registry"]["env_vars"] = {}
-default["confluent"]["schema-registry"]["class"] = "io.confluent.kafka.schemaregistry.rest.Main"
+default["confluent"]["schema-registry"]["class"] = "io.confluent.kafka.schemaregistry.rest.SchemaRegistryMain"
 
 default["confluent"]["schema-registry"]["log4j.properties"]["log4j.rootLogger"] = "CONSOLE,ROLLINGFILE"
 default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.CONSOLE"] = "org.apache.log4j.ConsoleAppender"

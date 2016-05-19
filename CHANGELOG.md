@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+[1.0.1 - 05-19-2016](https://github.com/bbaugher/confluent/issues?milestone=5&state=closed)
+-------------------------------------------------------------------------------------------
+
+  * [Bug] [Issue-11](https://github.com/bbaugher/confluent/issues/11) : Schema-registry service does not work
+
 [1.0.0 - 03-10-2016](https://github.com/bbaugher/confluent/issues?milestone=4&state=closed)
 -------------------------------------------------------------------------------------------
 

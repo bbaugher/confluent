@@ -70,8 +70,8 @@ Attributes
 
 ### Generic
 
- * `node["confluent"]["version"]` : The version of the Confluent package to install (default=`1.0`)
- * `node["confluent"]["scala_version"]` : The scala version of the Confluent package to install (default=`2.10.4`)
+ * `node["confluent"]["version"]` : The version of the Confluent package to install (default=`2.0.1`)
+ * `node["confluent"]["scala_version"]` : The scala version of the Confluent package to install (default=`2.11.7`)
  * `node["confluent"]["artifact_url"]` : The URL to the Confluent package to install. This is generated using the `version` and `scala_version` attributes. It downloads from `packages.confluent.io`.
  * `node["confluent"]["install_dir"]` : The directory to install the Confluent package (default=`/opt/confluent`)
  * `node["confluent"]["user"]` : The user that owns the Confluent package files and runs the services (default=`confluent`)

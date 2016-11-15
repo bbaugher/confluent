@@ -11,8 +11,8 @@ user node["confluent"]["user"] do
   uid node['confluent']['uid'] if node['confluent']['uid']
   comment "Confluent service user"
   gid node["confluent"]["group"]
-  shell   '/bin/false'
-  system  true
+  shell '/bin/false'
+  system true
 end
 
 # create confluent install directory

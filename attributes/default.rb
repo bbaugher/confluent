@@ -61,3 +61,39 @@ default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.ROLL
 default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.ROLLINGFILE.MaxBackupIndex"] = "10"
 default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout"] = "org.apache.log4j.PatternLayout"
 default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"
+
+
+
+default["confluent"]["kafka-connect"]["jar_urls"] = []
+# Expects a hash where they keys are the file name and the values are hashes representing the property_name:value pairs
+default["confluent"]["kafka-connect"]["properties_files"] = {}
+
+default["confluent"]["kafka-connect"]["distributed_mode"] = true
+default["confluent"]["kafka-connect"]["worker_properties_file_name"] = "worker.properties"
+default["confluent"]["kafka-connect"]["worker.properties"]["bootstrap.servers"] = "localhost:9092"
+default["confluent"]["kafka-connect"]["worker.properties"]["key.converter"] = "io.confluent.connect.avro.AvroConverter"
+default["confluent"]["kafka-connect"]["worker.properties"]["key.converter.schema.registry.url"] = "http://localhost:8081"
+default["confluent"]["kafka-connect"]["worker.properties"]["value.converter"] = "io.confluent.connect.avro.AvroConverter"
+default["confluent"]["kafka-connect"]["worker.properties"]["value.converter.schema.registry.url"] = "http://localhost:8081"
+default["confluent"]["kafka-connect"]["worker.properties"]["internal.key.converter"] = "org.apache.kafka.connect.json.JsonConverter"
+default["confluent"]["kafka-connect"]["worker.properties"]["internal.value.converter"] = "org.apache.kafka.connect.json.JsonConverter"
+default["confluent"]["kafka-connect"]["worker.properties"]["internal.key.converter.schemas.enable"] = "false"
+default["confluent"]["kafka-connect"]["worker.properties"]["internal.value.converter.schemas.enable"] = "false"
+default["confluent"]["kafka-connect"]["worker.properties"]["offset.storage.file.filename"] = "/tmp/connect.offsets"
+
+# Distributed properties only. connect-standalone works with these as well, it just appears to ignore them
+default["confluent"]["kafka-connect"]["worker.properties"]["group.id"] = "connect-cluster"
+default["confluent"]["kafka-connect"]["worker.properties"]["config.storage.topic"] = "connect-configs"
+default["confluent"]["kafka-connect"]["worker.properties"]["offset.storage.topic"] = "connect-offsets"
+
+default["confluent"]["kafka-connect"]["kafka-connect.properties"] = {}
+default["confluent"]["kafka-connect"]["env_vars"] = {}
+# TODO: What is this thing for. I see its used in init.d
+default["confluent"]["kafka-connect"]["class"] = "io.confluent.kafka.kafkaconnect.rest.KafkaConnectMain"
+
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.rootLogger"] = "INFO, stdout"
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.stdout"] = "org.apache.log4j.ConsoleAppender"
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.stdout.layout"] = "org.apache.log4j.PatternLayout"
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.stdout.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.logger.org.apache.zookeeper"] = "ERROR"
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.logger.org.I0Itec.zkclient"] = "ERROR"

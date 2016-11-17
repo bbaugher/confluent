@@ -19,8 +19,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   # If this value is a shorthand to a box in Vagrant Cloud then
   # config.vm.box_url doesn't need to be specified.
-  config.vm.box = "chef/ubuntu-14.04"
+  config.vm.box = "bento/ubuntu-14.04"
 
+  # Kafka Connector rest api port
+  config.vm.network "forwarded_port", guest: 8083, host: 8083
   # The url from where the 'config.vm.box' box will be fetched if it
   # is not a Vagrant Cloud box and if it doesn't already exist on the
   # user's system.
@@ -73,16 +75,54 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # config.berkshelf.except = []
 
   config.vm.provision :chef_solo do |chef|
+    chef.cookbooks_path = ['cookbooks', 'site-cookbooks']
+
+    chef.add_recipe 'java'
+
+    chef.add_recipe 'confluent::kafka-connect'
+
     chef.json = {
       mysql: {
         server_root_password: 'rootpass',
         server_debian_password: 'debpass',
         server_repl_password: 'replpass'
+      },
+      java: {
+        install_flavor: "oracle",
+        jdk_version: "8",
+        oracle: {
+          accept_oracle_download_terms: true
+        }
+      },
+      confluent: {
+        'kafka-connect' => {
+          jar_urls: [
+            # 'http://repo.release.cerner.corp/nexus/content/repositories/external-repo/com/microsoft/sqlserver/',
+            'https://raw.github.cerner.com/as027811/test_kafka_box/master/sqljdbc41.jar',
+            'https://github.cerner.com/as027811/test_kafka_box/raw/master/sqljdbc42.jar'
+          ],
+          properties_files: {
+            'quickstart-sqlserver.properties' => {
+              'name' => 'test-sqlserver-jdbc-bulk',
+              'connector.class' => 'io.confluent.connect.jdbc.JdbcSourceConnector',
+              'tasks.max' => '1',
+              'connection.url' =>
+                'jdbc:sqlserver://cernwellapp001.northamerica.cerner.net:1433;databaseName=PEAK;user=nutr;password=**********',
+              'mode' => 'bulk',
+              'topic.prefix' => 'test-sqlserver-jdbc-',
+              'table.whitelist' => 'AffiliateBusinessEntity'
+            }
+          },
+          'worker.properties' => {
+            'bootstrap.servers' => '10.0.2.2:9092',
+            'key.converter.schema.registry.url' => 'http://10.0.2.2:8081',
+            'value.converter.schema.registry.url' => 'http://10.0.2.2:8081'
+          },
+          'log4j.properties' => {
+            'log4j.rootLogger' => 'DEBUG, stdout'
+          }
+        }
       }
     }
-
-    chef.run_list = [
-        "recipe[confluent::default]"
-    ]
   end
 end

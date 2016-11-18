@@ -62,8 +62,6 @@ default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.ROLL
 default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout"] = "org.apache.log4j.PatternLayout"
 default["confluent"]["schema-registry"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"
 
-
-
 default["confluent"]["kafka-connect"]["jar_urls"] = []
 # Expects a hash where they keys are the file name and the values are hashes representing the property_name:value pairs
 default["confluent"]["kafka-connect"]["properties_files"] = {}
@@ -88,12 +86,18 @@ default["confluent"]["kafka-connect"]["worker.properties"]["offset.storage.topic
 
 default["confluent"]["kafka-connect"]["kafka-connect.properties"] = {}
 default["confluent"]["kafka-connect"]["env_vars"] = {}
-# TODO: What is this thing for. I see its used in init.d
-default["confluent"]["kafka-connect"]["class"] = "io.confluent.kafka.kafkaconnect.rest.KafkaConnectMain"
+default["confluent"]["kafka-connect"]["distributed_class"] = "org.apache.kafka.connect.cli.ConnectDistributed"
+default["confluent"]["kafka-connect"]["standalone_class"] = "org.apache.kafka.connect.cli.ConnectStandalone"
 
-default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.rootLogger"] = "INFO, stdout"
-default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.stdout"] = "org.apache.log4j.ConsoleAppender"
-default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.stdout.layout"] = "org.apache.log4j.PatternLayout"
-default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.stdout.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"
-default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.logger.org.apache.zookeeper"] = "ERROR"
-default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.logger.org.I0Itec.zkclient"] = "ERROR"
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.rootLogger"] = "CONSOLE,ROLLINGFILE"
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.CONSOLE"] = "org.apache.log4j.ConsoleAppender"
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.CONSOLE.Threshold"] = "INFO"
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.CONSOLE.layout"] = "org.apache.log4j.PatternLayout"
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.CONSOLE.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLINGFILE"] = "org.apache.log4j.RollingFileAppender"
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLINGFILE.Threshold"] = "INFO"
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLINGFILE.File"] = "/var/log/confluent/kafka.log"
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLINGFILE.MaxFileSize"] = "10MB"
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLINGFILE.MaxBackupIndex"] = "10"
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout"] = "org.apache.log4j.PatternLayout"
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"

@@ -1,7 +1,7 @@
 include_recipe "confluent::_install"
 
 confluent_extracted_dir = File.join(node["confluent"]["install_dir"], "confluent-#{node["confluent"]["version"]}")
-connect_jdbc_jar_dir = File.join confluent_extracted_dir, 'share/java/kafka-connect-jdbc' #TODO make this just kafka-connect-common
+connect_jdbc_jar_dir = File.join confluent_extracted_dir, 'share/java/kafka-connect-jdbc'
 
 directory "#{confluent_extracted_dir}/etc/kafka-connect" do
   owner node["confluent"]["user"]
@@ -72,7 +72,7 @@ template "#{confluent_extracted_dir}/bin/kafka-connect-start" do
 end
 
 template "#{confluent_extracted_dir}/bin/kafka-connect-stop" do
-  source 'kafka-connect-start.erb'
+  source 'kafka-connect-stop.erb'
   owner node["confluent"]["user"]
   group node["confluent"]["group"]
   mode "755"
@@ -80,6 +80,7 @@ template "#{confluent_extracted_dir}/bin/kafka-connect-stop" do
   notifies :restart, "service[kafka-connect]"
 end
 
+connect_class = node["confluent"]["kafka-connect"]["distributed_mode"] ? node["confluent"]["kafka-connect"]["distributed_class"] : node["confluent"]["kafka-connect"]["standalone_class"]
 template "/etc/init.d/kafka-connect" do
   source "service.erb"
   owner node["confluent"]["user"]
@@ -87,7 +88,7 @@ template "/etc/init.d/kafka-connect" do
   mode "755"
   variables(
     name: "kafka-connect",
-    class: node["confluent"]["kafka-connect"]["class"],
+    class: connect_class,
     properties_file: node["confluent"]["kafka-connect"]["worker_properties_file_name"],
     script: "kafka-connect",
     env_vars: node["confluent"]["kafka-connect"]["env_vars"]

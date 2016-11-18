@@ -84,7 +84,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.json = {
       mysql: {
         server_root_password: 'rootpass',
-        server_debian_password: 'debpass',
+        servegr_debian_password: 'debpass',
         server_repl_password: 'replpass'
       },
       java: {
@@ -98,28 +98,26 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         'kafka-connect' => {
           jar_urls: [
             # 'http://repo.release.cerner.corp/nexus/content/repositories/external-repo/com/microsoft/sqlserver/',
-            'https://raw.github.cerner.com/as027811/test_kafka_box/master/sqljdbc41.jar',
-            'https://github.cerner.com/as027811/test_kafka_box/raw/master/sqljdbc42.jar'
+            'https://raw.github.com/alex-bezek/raw_files/master/sqljdbc41.jar'
           ],
-          properties_files: {
-            'quickstart-sqlserver.properties' => {
-              'name' => 'test-sqlserver-jdbc-bulk',
-              'connector.class' => 'io.confluent.connect.jdbc.JdbcSourceConnector',
-              'tasks.max' => '1',
-              'connection.url' =>
-                'jdbc:sqlserver://cernwellapp001.northamerica.cerner.net:1433;databaseName=PEAK;user=nutr;password=**********',
-              'mode' => 'bulk',
-              'topic.prefix' => 'test-sqlserver-jdbc-',
-              'table.whitelist' => 'AffiliateBusinessEntity'
-            }
-          },
           'worker.properties' => {
             'bootstrap.servers' => '10.0.2.2:9092',
             'key.converter.schema.registry.url' => 'http://10.0.2.2:8081',
             'value.converter.schema.registry.url' => 'http://10.0.2.2:8081'
           },
           'log4j.properties' => {
-            'log4j.rootLogger' => 'DEBUG, stdout'
+            'log4j.rootLogger' => 'CONSOLE,ROLLINGFILE',
+            'log4j.appender.CONSOLE' => 'org.apache.log4j.ConsoleAppender',
+            'log4j.appender.CONSOLE.Threshold' => 'INFO',
+            'log4j.appender.CONSOLE.layout' => 'org.apache.log4j.PatternLayout',
+            'log4j.appender.CONSOLE.layout.ConversionPattern' => '[%d] %p %m (%c:%L)%n',
+            'log4j.appender.ROLLINGFILE' => 'org.apache.log4j.RollingFileAppender',
+            'log4j.appender.ROLLINGFILE.Threshold' => 'INFO',
+            'log4j.appender.ROLLINGFILE.File' => '/var/log/confluent/kafka-connect.log',
+            'log4j.appender.ROLLINGFILE.MaxFileSize' => '10MB',
+            'log4j.appender.ROLLINGFILE.MaxBackupIndex' => '10',
+            'log4j.appender.ROLLINGFILE.layout' => 'org.apache.log4j.PatternLayout',
+            'log4j.appender.ROLLINGFILE.layout.ConversionPattern' => '[%d] %p %m (%c:%L)%n'
           }
         }
       }

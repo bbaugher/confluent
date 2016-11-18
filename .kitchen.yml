@@ -27,6 +27,7 @@ suites:
       - recipe[confluent::kafka]
       - recipe[confluent::kafka-rest]
       - recipe[confluent::schema-registry]
+      # - recipe[confluent::kafka-connect]
     attributes:
       confluent:
         kafka:
@@ -46,3 +47,4 @@ suites:
             kafkastore.connection.url: localhost:2181
       java:
         jdk_version: 7
+        # jdk_version: 8

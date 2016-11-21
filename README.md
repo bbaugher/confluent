@@ -9,6 +9,7 @@ Installs the [Confluent](http://confluent.io/) package and can run its services,
  * Kafka
  * Kafka REST
  * Schema Registry
+ * Kafka Connect
 
 View the [Change Log](CHANGELOG.md) to see what has changed.
 
@@ -26,6 +27,7 @@ You can also find the configuration under,
  * /etc/kafka
  * /etc/kafka-rest
  * /etc/schema-registry
+ * /etc/kafka-connect
 
 ### Kafka Service
 
@@ -65,6 +67,19 @@ You can find the SysV script at `/etc/init.d/schema-registry` or `service schema
 
 You can find the logs at `/var/log/confluent/schema-registry.log`.
 
+### Kafka Connect
+
+If you include the `recipe[confluent::kafka-connect]` this will install the Confluent package, configure and start the
+Kafka connector. This will listen on port 8083 exposing its rest api to control spinning up new connectors.
+
+You can configure the service using the attribtues `node["confluent"]["kafka-connect"]["worker.properties"][...] = ...`.
+Use Confluent's [Kafka Connect doc](http://docs.confluent.io/2.0.0/connect/userguide.html) to figure out the
+appropriate configuration for yourself.
+
+You can find the SysV script at `/etc/init.d/kafka-connect` or `service kafka-connect [start|stop|restart|status]`.
+
+You can find the logs at `/var/log/confluent/kafka-connect.log`.
+
 Attributes
 ----------
 
@@ -99,6 +114,15 @@ Attributes
  * `node["confluent"]["schema-registry"]["schema-registry.properties"]` : A Hash of properties that configure the Schema Registry service (default=`{}`)
  * `node["confluent"]["schema-registry"]["env_vars"]` : A Hash of environment variables applied when running the service
  * `node["confluent"]["schema-registry"]["log4j.properties"]` : A Hash of properties that configure log4j for the Schema Registry service (see attributes for defaults)
+
+### Kafka Connect
+* `node["confluent"]["kafka-connect"]["jar_urls"]` : an array of urls to remote files to download and install in the directory `share/java/kafka-connect-all` located in the extracted confluent directory which is where connect looks by default.
+* `node["confluent"]["kafka-connect"]["properties_files"]` : a hash where they key is a property file name, and the value is a hash of keys/values for the property file. Used to drop in property files via chef config as opposed to the rest api.
+* `node["confluent"]["kafka-connect"]["distributed_mode"]` : Boolean used to decide if it should launch in standalone or distributed mode. Defaults to true
+* `node["confluent"]["kafka-connect"]["worker_properties_file_name"]` : The name of the properties file to use when starting the connect service.
+* `node["confluent"]["kafka-connect"]["worker.properties"]` : hash of properties to configure the connect properties with.
+* `node["confluent"]["kafka-connect"]["env_vars"]` : A Hash of environment variables applied when running the service
+* `node["confluent"]["kafka-connect"]["log4j.properties"]` : A Hash of properties that configure log4j for the Schema Registry service (see attributes for defaults)
 
 Testing
 -------

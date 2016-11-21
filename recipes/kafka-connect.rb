@@ -1,7 +1,7 @@
 include_recipe "confluent::_install"
 
 confluent_extracted_dir = File.join(node["confluent"]["install_dir"], "confluent-#{node["confluent"]["version"]}")
-connect_jdbc_jar_dir = File.join confluent_extracted_dir, 'share/java/kafka-connect-jdbc'
+connect_jdbc_jar_dir = File.join confluent_extracted_dir, 'share/java/kafka-connect-all'
 
 directory "#{confluent_extracted_dir}/etc/kafka-connect" do
   owner node["confluent"]["user"]

@@ -29,6 +29,6 @@ describe file('/etc/kafka-connect/test_file.properties') do
   it { should contain('test.property=test') }
 end
 
-describe file('/opt/confluent/confluent-2.0.1/share/java/kafka-connect-jdbc/sqljdbc41.jar') do
+describe file('/opt/confluent/confluent-2.0.1/share/java/kafka-connect-all/sqljdbc41.jar') do
   it { should be_file }
 end

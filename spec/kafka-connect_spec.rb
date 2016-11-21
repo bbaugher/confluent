@@ -28,7 +28,7 @@ describe 'confluent::kafka-connect' do
   end
 
   it 'should pull down jars to use' do
-    expect(chef_run.converge(described_recipe)).to create_remote_file_if_missing("#{extracted_directory}/share/java/kafka-connect-jdbc/sqljdbc41.jar").with(backup: false)
+    expect(chef_run.converge(described_recipe)).to create_remote_file_if_missing("#{extracted_directory}/share/java/kafka-connect-all/sqljdbc41.jar").with(backup: false)
   end
 
   it 'should configure worker properties file' do

@@ -27,7 +27,7 @@ suites:
       - recipe[confluent::kafka]
       - recipe[confluent::kafka-rest]
       - recipe[confluent::schema-registry]
-      # - recipe[confluent::kafka-connect]
+      - recipe[confluent::kafka-connect]
     attributes:
       confluent:
         kafka:
@@ -45,6 +45,13 @@ suites:
         schema-registry:
           schema-registry.properties:
             kafkastore.connection.url: localhost:2181
+        kafka-connect:
+          jar_urls:
+            - https://raw.github.com/alex-bezek/raw_files/master/sqljdbc41.jar
+          properties_files:
+            test_file.properties:
+              test.property: test
+          log4j.properties:
+            log4j.test.property: test
       java:
-        jdk_version: 7
-        # jdk_version: 8
+        jdk_version: 8

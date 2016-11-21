@@ -84,7 +84,6 @@ default["confluent"]["kafka-connect"]["worker.properties"]["group.id"] = "connec
 default["confluent"]["kafka-connect"]["worker.properties"]["config.storage.topic"] = "connect-configs"
 default["confluent"]["kafka-connect"]["worker.properties"]["offset.storage.topic"] = "connect-offsets"
 
-default["confluent"]["kafka-connect"]["kafka-connect.properties"] = {}
 default["confluent"]["kafka-connect"]["env_vars"] = {}
 default["confluent"]["kafka-connect"]["distributed_class"] = "org.apache.kafka.connect.cli.ConnectDistributed"
 default["confluent"]["kafka-connect"]["standalone_class"] = "org.apache.kafka.connect.cli.ConnectStandalone"
@@ -96,7 +95,7 @@ default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.CONSOL
 default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.CONSOLE.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"
 default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLINGFILE"] = "org.apache.log4j.RollingFileAppender"
 default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLINGFILE.Threshold"] = "INFO"
-default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLINGFILE.File"] = "/var/log/confluent/kafka.log"
+default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLINGFILE.File"] = "/var/log/confluent/kafka-connect.log"
 default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLINGFILE.MaxFileSize"] = "10MB"
 default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLINGFILE.MaxBackupIndex"] = "10"
 default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout"] = "org.apache.log4j.PatternLayout"

@@ -78,7 +78,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.cookbooks_path = ['cookbooks', 'site-cookbooks']
 
     chef.add_recipe 'java'
-
     chef.add_recipe 'confluent::kafka-connect'
 
     chef.json = {
@@ -96,29 +95,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       },
       confluent: {
         'kafka-connect' => {
-          jar_urls: [
-            # 'http://repo.release.cerner.corp/nexus/content/repositories/external-repo/com/microsoft/sqlserver/',
-            'https://raw.github.com/alex-bezek/raw_files/master/sqljdbc41.jar'
-          ],
-          'worker.properties' => {
-            'bootstrap.servers' => '10.0.2.2:9092',
-            'key.converter.schema.registry.url' => 'http://10.0.2.2:8081',
-            'value.converter.schema.registry.url' => 'http://10.0.2.2:8081'
-          },
-          'log4j.properties' => {
-            'log4j.rootLogger' => 'CONSOLE,ROLLINGFILE',
-            'log4j.appender.CONSOLE' => 'org.apache.log4j.ConsoleAppender',
-            'log4j.appender.CONSOLE.Threshold' => 'INFO',
-            'log4j.appender.CONSOLE.layout' => 'org.apache.log4j.PatternLayout',
-            'log4j.appender.CONSOLE.layout.ConversionPattern' => '[%d] %p %m (%c:%L)%n',
-            'log4j.appender.ROLLINGFILE' => 'org.apache.log4j.RollingFileAppender',
-            'log4j.appender.ROLLINGFILE.Threshold' => 'INFO',
-            'log4j.appender.ROLLINGFILE.File' => '/var/log/confluent/kafka-connect.log',
-            'log4j.appender.ROLLINGFILE.MaxFileSize' => '10MB',
-            'log4j.appender.ROLLINGFILE.MaxBackupIndex' => '10',
-            'log4j.appender.ROLLINGFILE.layout' => 'org.apache.log4j.PatternLayout',
-            'log4j.appender.ROLLINGFILE.layout.ConversionPattern' => '[%d] %p %m (%c:%L)%n'
-          }
+          # Used if you are running kafka services outside of your vagrant node, using the gateway ip to communicate with your host machine
+          # 'worker.properties' => {
+          #   'bootstrap.servers' => '10.0.2.2:9092',
+          #   'key.converter.schema.registry.url' => 'http://10.0.2.2:8081',
+          #   'value.converter.schema.registry.url' => 'http://10.0.2.2:8081'
+          # }
         }
       }
     }

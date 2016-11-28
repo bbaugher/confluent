@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'confluent::zookeeper' do
-
   before do
     Fauxhai.mock(platform: 'centos', version: '6.7')
   end

@@ -1,9 +1,17 @@
 include_recipe "confluent::_install"
+connect_class = node["confluent"]["kafka-connect"]["distributed_mode"] ? node["confluent"]["kafka-connect"]["distributed_class"] : node["confluent"]["kafka-connect"]["standalone_class"]
 
 confluent_extracted_dir = File.join(node["confluent"]["install_dir"], "confluent-#{node["confluent"]["version"]}")
 connect_jdbc_jar_dir = File.join confluent_extracted_dir, 'share/java/kafka-connect-all'
 
 directory "#{confluent_extracted_dir}/etc/kafka-connect" do
+  owner node["confluent"]["user"]
+  group node["confluent"]["group"]
+  mode "755"
+  action :create
+end
+
+directory "#{confluent_extracted_dir}/share/java/kafka-connect-all" do
   owner node["confluent"]["user"]
   group node["confluent"]["group"]
   mode "755"
@@ -72,15 +80,17 @@ template "#{confluent_extracted_dir}/bin/kafka-connect-start" do
 end
 
 template "#{confluent_extracted_dir}/bin/kafka-connect-stop" do
-  source 'kafka-connect-stop.erb'
+  source 'stop.erb'
   owner node["confluent"]["user"]
   group node["confluent"]["group"]
   mode "755"
+  variables(
+    process_name: connect_class
+  )
   backup false
   notifies :restart, "service[kafka-connect]"
 end
 
-connect_class = node["confluent"]["kafka-connect"]["distributed_mode"] ? node["confluent"]["kafka-connect"]["distributed_class"] : node["confluent"]["kafka-connect"]["standalone_class"]
 template "/etc/init.d/kafka-connect" do
   source "service.erb"
   owner node["confluent"]["user"]

@@ -27,6 +27,10 @@ describe 'confluent::kafka-connect' do
     expect(chef_run.converge(described_recipe)).to create_directory('/opt/confluent/confluent-2.0.1/etc/kafka-connect')
   end
 
+  it 'should create a directory to save jars to' do
+    expect(chef_run.converge(described_recipe)).to create_directory('/opt/confluent/confluent-2.0.1/share/java/kafka-connect-all')
+  end
+
   it 'should pull down jars to use' do
     expect(chef_run.converge(described_recipe)).to create_remote_file_if_missing("#{extracted_directory}/share/java/kafka-connect-all/sqljdbc41.jar").with(backup: false)
   end

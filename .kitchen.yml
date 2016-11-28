@@ -24,6 +24,7 @@ suites:
       # requires an apt-get update in order to successfully run
       - recipe[apt]
       - recipe[confluent_tester]
+      - recipe[confluent::zookeeper]
       - recipe[confluent::kafka]
       - recipe[confluent::kafka-rest]
       - recipe[confluent::schema-registry]

@@ -45,7 +45,7 @@ default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.ROLLINGFI
 default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout"] = "org.apache.log4j.PatternLayout"
 default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"
 
-default["confluent"]["schema-registry"]["schema-registry.properties"] = {}
+default["confluent"]["schema-registry"]["schema-registry.properties"]["kafkastore.connection.url"] = "localhost:2181"
 default["confluent"]["schema-registry"]["env_vars"] = {}
 default["confluent"]["schema-registry"]["class"] = "io.confluent.kafka.schemaregistry.rest.SchemaRegistryMain"
 
@@ -100,3 +100,7 @@ default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLIN
 default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLINGFILE.MaxBackupIndex"] = "10"
 default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout"] = "org.apache.log4j.PatternLayout"
 default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLINGFILE.layout.ConversionPattern"] = "[%d] %p %m (%c:%L)%n"
+
+default["confluent"]["zookeeper"]["zookeeper.properties"]["dataDir"] = "/tmp/zookeeper"
+default["confluent"]["zookeeper"]["zookeeper.properties"]["clientPort"] = "2181"
+default["confluent"]["zookeeper"]["zookeeper.properties"]["maxClientCnxns"] = "0"

@@ -25,8 +25,6 @@ Metrics/LineLength:
 # Configuration parameters: CountComments.
 Metrics/MethodLength:
   Max: 34
-  Exclude:
-    - 'recipes/_install.rb'
 
 # Offense count: 1
 # Description: 'Avoid long blocks with many lines.'

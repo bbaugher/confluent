@@ -50,10 +50,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           zookeepers: ['localhost:2181']
         },
         'kafka-connect' => {
-          jar_urls:
-          [
-            'https://raw.github.com/alex-bezek/raw_files/master/sqljdbc41.jar'
-          ],
           #  Used if you are running kafka services outside of your vagrant node, using the gateway ip to communicate with your host machine
           # 'worker.properties' => {
           #   'bootstrap.servers' => '10.0.2.2:9092',

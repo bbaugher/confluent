@@ -6,7 +6,7 @@ describe service('kafka-connect') do
   it { should be_running   }
 end
 
-# Kafka Rest API
+# Kafka Connect API
 describe port(8083) do
   it { should be_listening }
 end

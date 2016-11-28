@@ -49,7 +49,7 @@ end
 
 # Allows for easily writing custom jdbc connector properties files at deployment time instead of via the rest api
 node["confluent"]["kafka-connect"]["properties_files"].each do |property_file_name, properties|
-  template "etc/kafka-connect/#{property_file_name}" do
+  template "/etc/kafka-connect/#{property_file_name}" do
     source 'properties.erb'
     owner node["confluent"]["user"]
     group node["confluent"]["group"]

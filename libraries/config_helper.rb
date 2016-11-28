@@ -15,16 +15,13 @@ def set_broker_id
       "node['confluent']['kafka']['server.properties']['broker.id'] must be set properly"
     )
   else
-    broker_id = brokers.index do |broker|
-      broker == node['fqdn'] ||
-      broker == node['ipaddress'] ||
-      broker == node['hostname']
-    end
+    broker_id = brokers.index { |broker| [node['fqdn'], node['ipaddress'], node['hostname']].include? broker }
 
     if broker_id.nil?
-      Chef::Log.error("Unable to find #{node['fqdn']}, #{node['ipaddress']} or "\
-                      "#{node['hostname']} in node['kafka']['brokers'] : #{node['confluent']['kafka']['brokers']}"
-                     )
+      Chef::Log.error(
+        "Unable to find #{node['fqdn']}, #{node['ipaddress']} or "\
+        "#{node['hostname']} in node['kafka']['brokers'] : #{node['confluent']['kafka']['brokers']}"
+      )
     else
       node.default['confluent']['kafka']['server.properties']['broker.id'] = broker_id + 1
       Chef::Log.debug("BROKER SET: #{node['confluent']['kafka']['server.properties']['broker.id']}")

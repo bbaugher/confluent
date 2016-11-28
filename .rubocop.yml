@@ -25,6 +25,17 @@ Metrics/LineLength:
 # Configuration parameters: CountComments.
 Metrics/MethodLength:
   Max: 34
+  Exclude:
+    - 'recipes/_install.rb'
+
+# Offense count: 1
+# Description: 'Avoid long blocks with many lines.'
+Metrics/BlockLength:
+  Exclude:
+    - 'Vagrantfile'
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
 
 # Offense count: 1
 Metrics/PerceivedComplexity:
@@ -43,9 +54,11 @@ Style/BracesAroundHashParameters:
   Exclude:
     - 'Rakefile'
     - 'recipes/_install.rb'
+    - 'recipes/zookeeper.rb'
     - 'recipes/kafka-rest.rb'
     - 'recipes/kafka.rb'
     - 'recipes/schema-registry.rb'
+    - 'recipes/kafka-connect.rb'
 
 # Offense count: 8
 # Cop supports --auto-correct.
@@ -54,6 +67,7 @@ Style/EmptyLinesAroundBlockBody:
   Exclude:
     - 'spec/default_spec.rb'
     - 'spec/kafka-rest_spec.rb'
+    - 'spec/kafka-connect_spec.rb'
     - 'spec/kafka_spec.rb'
     - 'spec/schema-registry_spec.rb'
 
@@ -76,10 +90,13 @@ Style/FileName:
   Exclude:
     - 'recipes/kafka-rest.rb'
     - 'recipes/schema-registry.rb'
+    - 'recipes/kafka-connect.rb'
     - 'spec/kafka-rest_spec.rb'
     - 'spec/schema-registry_spec.rb'
+    - 'spec/kafka-connect_spec.rb'
     - 'test/integration/default/serverspec/kafka-rest_spec.rb'
     - 'test/integration/default/serverspec/schema-registry_spec.rb'
+    - 'test/integration/default/serverspec/kafka-connect_spec.rb'
 
 # Offense count: 1
 # Configuration parameters: MinBodyLength.
@@ -147,6 +164,7 @@ Style/SpaceAfterColon:
   Exclude:
     - 'spec/default_spec.rb'
     - 'spec/kafka-rest_spec.rb'
+    - 'spec/kafka-connect_spec.rb'
     - 'spec/kafka_spec.rb'
     - 'spec/schema-registry_spec.rb'
 

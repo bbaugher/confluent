@@ -80,6 +80,10 @@ You can find the SysV script at `/etc/init.d/kafka-connect` or `service kafka-co
 
 You can find the logs at `/var/log/confluent/kafka-connect.log`.
 
+### Zookeeper (For development purposes only)
+
+If you include the `recipe[confluent::zookeeper]` this will install the Confluent package and start a zookeeper process. It will listen on port 2181. This is a single zookeeper worker and is not recomended for production use. The primary purpose of this recipe is to get everything running inside vagrant as a self contained system without having to run process on the host machine.
+
 Attributes
 ----------
 
@@ -117,12 +121,15 @@ Attributes
 
 ### Kafka Connect
 * `node["confluent"]["kafka-connect"]["jar_urls"]` : an array of urls to remote files to download and install in the directory `share/java/kafka-connect-all` located in the extracted confluent directory which is where connect looks by default.
-* `node["confluent"]["kafka-connect"]["properties_files"]` : a hash where they key is a property file name, and the value is a hash of keys/values for the property file. Used to drop in property files via chef config as opposed to the rest api.
+* `node["confluent"]["kafka-connect"]["properties_files"]` : a hash where the key is a property file name, and the value is a hash of keys/values for the property file. Used to drop in property files via chef config as opposed to the rest api.
 * `node["confluent"]["kafka-connect"]["distributed_mode"]` : Boolean used to decide if it should launch in standalone or distributed mode. Defaults to true
 * `node["confluent"]["kafka-connect"]["worker_properties_file_name"]` : The name of the properties file to use when starting the connect service.
 * `node["confluent"]["kafka-connect"]["worker.properties"]` : hash of properties to configure the connect properties with.
 * `node["confluent"]["kafka-connect"]["env_vars"]` : A Hash of environment variables applied when running the service
 * `node["confluent"]["kafka-connect"]["log4j.properties"]` : A Hash of properties that configure log4j for the Schema Registry service (see attributes for defaults)
+
+### Zookeeper
+* `node["confluent"]["zookeeper"]["zookeeper.properties"]` : a hash of properties to configure the zookeeper server with
 
 Testing
 -------

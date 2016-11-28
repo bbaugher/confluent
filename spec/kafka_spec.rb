@@ -8,10 +8,10 @@ describe 'confluent::kafka' do
 
   let(:chef_run) do
     ChefSpec::SoloRunner.new do |node|
-      node.set["confluent"]["kafka"]["server.properties"]["key"] = "value1"
-      node.set["confluent"]["kafka"]["log4j.properties"]["key"] = "log1"
-      node.set['confluent']['kafka']['server.properties']['broker.id'] = 1
-      node.set['confluent']['kafka']['zookeepers'] = 'testhost.chefspec'
+      node.override["confluent"]["kafka"]["server.properties"]["key"] = "value1"
+      node.override["confluent"]["kafka"]["log4j.properties"]["key"] = "log1"
+      node.override['confluent']['kafka']['server.properties']['broker.id'] = 1
+      node.override['confluent']['kafka']['zookeepers'] = 'testhost.chefspec'
     end
   end
 

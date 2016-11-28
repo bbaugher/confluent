@@ -22,9 +22,9 @@ describe 'confluent::default' do
   context 'with overrides' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set["confluent"]["version"] = "1.2.1"
-        node.set["confluent"]["scala_version"] = "2.11.1"
-        node.set["confluent"]["install_dir"] = "/opt/confluent_other"
+        node.override["confluent"]["version"] = "1.2.1"
+        node.override["confluent"]["scala_version"] = "2.11.1"
+        node.override["confluent"]["install_dir"] = "/opt/confluent_other"
       end
     end
 

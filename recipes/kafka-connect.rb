@@ -8,14 +8,12 @@ directory "#{confluent_extracted_dir}/etc/kafka-connect" do
   owner node["confluent"]["user"]
   group node["confluent"]["group"]
   mode "755"
-  action :create
 end
 
 directory "#{confluent_extracted_dir}/share/java/kafka-connect-all" do
   owner node["confluent"]["user"]
   group node["confluent"]["group"]
   mode "755"
-  action :create
 end
 
 link "/etc/kafka-connect" do

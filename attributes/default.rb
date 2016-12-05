@@ -87,6 +87,7 @@ default["confluent"]["kafka-connect"]["worker.properties"]["offset.storage.topic
 default["confluent"]["kafka-connect"]["env_vars"] = {}
 default["confluent"]["kafka-connect"]["distributed_class"] = "org.apache.kafka.connect.cli.ConnectDistributed"
 default["confluent"]["kafka-connect"]["standalone_class"] = "org.apache.kafka.connect.cli.ConnectStandalone"
+default["confluent"]["kafka-connect"]["standalone_connectors"] = []
 
 default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.rootLogger"] = "CONSOLE,ROLLINGFILE"
 default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.CONSOLE"] = "org.apache.log4j.ConsoleAppender"

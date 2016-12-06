@@ -5,8 +5,8 @@ gem 'rake'
 group :travis do
   gem 'berkshelf'
   gem 'chefspec'
-  gem 'rspec'
   gem 'foodcritic'
+  gem 'rspec'
   gem 'rubocop'
 end
 

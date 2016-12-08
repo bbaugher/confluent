@@ -11,6 +11,7 @@ default["confluent"]["group"] = "confluent"
 
 default["confluent"]["kafka"]["server.properties"] = {}
 default['confluent']['kafka']['zookeepers'] = nil
+default['confluent']['kafka']['zookeeper_chroot'] = nil
 default['confluent']['kafka']['brokers'] = nil
 default["confluent"]["kafka"]["env_vars"] = {}
 default["confluent"]["kafka"]["class"] = "kafka.Kafka"

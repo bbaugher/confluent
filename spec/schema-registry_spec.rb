@@ -8,8 +8,8 @@ describe 'confluent::schema-registry' do
 
   let(:chef_run) do
     ChefSpec::SoloRunner.new do |node|
-      node.set["confluent"]["schema-registry"]["schema-registry.properties"]["key"] = "value1"
-      node.set["confluent"]["schema-registry"]["log4j.properties"]["key"] = "log1"
+      node.override["confluent"]["schema-registry"]["schema-registry.properties"]["key"] = "value1"
+      node.override["confluent"]["schema-registry"]["log4j.properties"]["key"] = "log1"
     end
   end
 

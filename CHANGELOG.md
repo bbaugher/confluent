@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+[1.1.0 - 12-14-2016](https://github.com/bbaugher/confluent/issues?milestone=6&state=closed)
+-------------------------------------------------------------------------------------------
+
+  * [Feature] [Issue-15](https://github.com/bbaugher/confluent/issues/15) : Kafka connect
+
 [1.0.1 - 05-19-2016](https://github.com/bbaugher/confluent/issues?milestone=5&state=closed)
 -------------------------------------------------------------------------------------------
 

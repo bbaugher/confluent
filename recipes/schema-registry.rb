@@ -1,6 +1,8 @@
 
 include_recipe "confluent::_install"
 
+set_kerberos_config('schema-registry')
+
 template "/etc/schema-registry/schema-registry.properties" do
   source "properties.erb"
   owner node["confluent"]["user"]
@@ -38,4 +40,7 @@ end
 
 service "schema-registry" do
   action [:enable, :start]
+  if node["confluent"]["kerberos"]["enable"]
+    subscribes :restart, "template[#{node["confluent"]["install_dir"]}/confluent-#{node["confluent"]["version"]}/jaas.conf]"
+  end
 end

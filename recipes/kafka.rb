@@ -2,6 +2,7 @@ include_recipe "confluent::_install"
 
 set_broker_id
 set_zookeeper_connect
+set_kerberos_config('kafka')
 
 template "/etc/kafka/server.properties" do
   source "properties.erb"
@@ -40,4 +41,7 @@ end
 
 service "kafka" do
   action [:enable, :start]
+  if node["confluent"]["kerberos"]["enable"]
+    subscribes :restart, "template[#{node["confluent"]["install_dir"]}/confluent-#{node["confluent"]["version"]}/jaas.conf]"
+  end
 end

@@ -1,6 +1,8 @@
 
 include_recipe "confluent::_install"
 
+set_kerberos_config('kafka-rest')
+
 # Kafka Rest config files
 link "/etc/kafka-rest" do
   to "#{node["confluent"]["install_dir"]}/confluent-#{node["confluent"]["version"]}/etc/kafka-rest"
@@ -43,4 +45,7 @@ end
 
 service "kafka-rest" do
   action [:enable, :start]
+  if node["confluent"]["kerberos"]["enable"]
+    subscribes :restart, "template[#{node["confluent"]["install_dir"]}/confluent-#{node["confluent"]["version"]}/jaas.conf]"
+  end
 end

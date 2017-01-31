@@ -35,4 +35,54 @@ describe 'confluent::default' do
       expect(chef_run).to run_execute("unzip -q #{Chef::Config[:file_cache_path]}/confluent-1.2.1-2.11.1.zip -d /opt/confluent_other")
     end
   end
+
+  context 'with kerberos enabled' do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new do |node|
+        node.override["confluent"]["kerberos"]["enable"] = true
+        node.override["confluent"]["kerberos"]["keytab"] = '/path/to/keytab'
+        node.override["confluent"]["kerberos"]["realm"] = 'myrealm.net'
+      end
+    end
+
+    it 'should config JAAS' do
+      chef_run.converge(described_recipe)
+      expect(chef_run).to create_template('/opt/confluent/confluent-2.0.1/jaas.conf')
+      expect(chef_run).to render_file('/opt/confluent/confluent-2.0.1/jaas.conf').with_content { |content|
+        expect(content).to include('KafkaServer {')
+        expect(content).to include('com.sun.security.auth.module.Krb5LoginModule required')
+        expect(content).to include('useKeyTab=true')
+        expect(content).to include('storeKey=true')
+        expect(content).to include('keyTab=/path/to/keytab')
+        expect(content).to include('principal=confluent/fauxhai.local@myrealm.net')
+        expect(content).to include('KafkaClient {')
+      }
+    end
+
+    context 'and realm not specified' do
+      let(:chef_run) do
+        ChefSpec::SoloRunner.new do |node|
+          node.override["confluent"]["kerberos"]["enable"] = true
+          node.override["confluent"]["kerberos"]["keytab"] = '/path/to/keytab'
+        end
+      end
+
+      it 'should raise exception' do
+        expect { chef_run.converge(described_recipe) }.to raise_error(RuntimeError)
+      end
+    end
+
+    context 'and keytab_location not specified' do
+      let(:chef_run) do
+        ChefSpec::SoloRunner.new do |node|
+          node.override["confluent"]["kerberos"]["enable"] = true
+          node.override["confluent"]["kerberos"]["realm"] = 'myrealm.net'
+        end
+      end
+
+      it 'should raise exception' do
+        expect { chef_run.converge(described_recipe) }.to raise_error(RuntimeError)
+      end
+    end
+  end
 end

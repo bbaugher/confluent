@@ -106,3 +106,15 @@ default["confluent"]["kafka-connect"]["log4j.properties"]["log4j.appender.ROLLIN
 default["confluent"]["zookeeper"]["zookeeper.properties"]["dataDir"] = "/tmp/zookeeper"
 default["confluent"]["zookeeper"]["zookeeper.properties"]["clientPort"] = "2181"
 default["confluent"]["zookeeper"]["zookeeper.properties"]["maxClientCnxns"] = "0"
+
+#Kerberos configuration
+default["confluent"]["kerberos"]["enable"] = false
+# The keytab location and realm (or complete custom principal) are required if Kerberos is enabled with the above attribute
+default["confluent"]["kerberos"]["keytab"] = nil
+default["confluent"]["kerberos"]["realm"] = nil
+default["confluent"]["kerberos"]["principal"] = "#{node["confluent"]["user"]}/#{node["fqdn"]}@#{node["confluent"]["kerberos"]["realm"]}"
+default["confluent"]["kerberos"]["enable_zk"] = false
+default["confluent"]["kerberos"]["krb5_properties"]["useKeyTab"] = "true"
+default["confluent"]["kerberos"]["krb5_properties"]["storeKey"] = "true"
+default["confluent"]["kerberos"]["zk_krb5_properties"]["useKeyTab"] = "true"
+default["confluent"]["kerberos"]["zk_krb5_properties"]["storeKey"] = "true"

@@ -78,3 +78,17 @@ end
 link "/etc/schema-registry" do
   to "#{node["confluent"]["install_dir"]}/confluent-#{node["confluent"]["version"]}/etc/schema-registry"
 end
+
+# Write JAAS configuration file if enabled
+if node["confluent"]["kerberos"]["enable"]
+  # Verify required attributes are set
+  raise "Kerberos keytab location must be configured" if node["confluent"]["kerberos"]["keytab"].nil?
+  raise "Kerberos realm or principal must be configured" if node["confluent"]["kerberos"]["principal"].end_with? '@'
+
+  template "#{node["confluent"]["install_dir"]}/confluent-#{node["confluent"]["version"]}/jaas.conf" do
+    source "jaas.conf.erb"
+    owner node["confluent"]["user"]
+    group node["confluent"]["group"]
+    mode  00755
+  end
+end

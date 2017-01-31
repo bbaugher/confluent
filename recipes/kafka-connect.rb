@@ -4,6 +4,8 @@ connect_class = node["confluent"]["kafka-connect"]["distributed_mode"] ? node["c
 confluent_extracted_dir = File.join(node["confluent"]["install_dir"], "confluent-#{node["confluent"]["version"]}")
 connect_jdbc_jar_dir = File.join confluent_extracted_dir, 'share/java/kafka-connect-all'
 
+set_kerberos_config('kafka-connect')
+
 directory "#{confluent_extracted_dir}/etc/kafka-connect" do
   owner node["confluent"]["user"]
   group node["confluent"]["group"]
@@ -107,4 +109,7 @@ end
 
 service "kafka-connect" do
   action [:enable, :start]
+  if node["confluent"]["kerberos"]["enable"]
+    subscribes :restart, "template[#{node["confluent"]["install_dir"]}/confluent-#{node["confluent"]["version"]}/jaas.conf]"
+  end
 end

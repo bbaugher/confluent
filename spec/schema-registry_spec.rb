@@ -28,4 +28,20 @@ describe 'confluent::schema-registry' do
     expect(chef_run).to render_file('/etc/schema-registry/log4j.properties').with_content('key=log1')
   end
 
+  context 'with kerberos enabled' do
+
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new do |node|
+        node.override["confluent"]["kerberos"]["enable"] = true
+        node.override["confluent"]["kerberos"]["keytab"] = '/path/to/keytab'
+        node.override["confluent"]["kerberos"]["realm"] = 'myrealm.net'
+      end
+    end
+
+    it 'should configure java security' do
+      chef_run.converge(described_recipe)
+      expect(chef_run.node["confluent"]["schema-registry"]["env_vars"]["-Djava.security.auth.login.config="]).to eq("#{chef_run.node["confluent"]["install_dir"]}/confluent-#{chef_run.node["confluent"]["version"]}/jaas.conf")
+    end
+  end
+
 end

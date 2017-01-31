@@ -7,5 +7,8 @@ rvm:
 script:
 # We cannot run integration tests on travis since that uses vagrant/virtualbox and
 # is not available in travis ci
+
+# Update rubygems for issue with rainbow (https://github.com/bundler/bundler/issues/5357)
+  - gem update --system
   - bundle exec rake unit
   - bundle exec rake style

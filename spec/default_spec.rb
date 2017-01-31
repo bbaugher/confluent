@@ -53,8 +53,8 @@ describe 'confluent::default' do
         expect(content).to include('com.sun.security.auth.module.Krb5LoginModule required')
         expect(content).to include('useKeyTab=true')
         expect(content).to include('storeKey=true')
-        expect(content).to include('keyTab=/path/to/keytab')
-        expect(content).to include('principal=confluent/fauxhai.local@myrealm.net')
+        expect(content).to include('keyTab="/path/to/keytab"')
+        expect(content).to include('principal="confluent/fauxhai.local@myrealm.net"')
         expect(content).to include('KafkaClient {')
       }
     end

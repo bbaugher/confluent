@@ -2,7 +2,7 @@ include_recipe "confluent::_install"
 
 set_broker_id
 set_zookeeper_connect
-set_kerberos_config('kafka')
+apply_kerberos_config('kafka')
 
 template "/etc/kafka/server.properties" do
   source "properties.erb"

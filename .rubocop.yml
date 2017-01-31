@@ -215,3 +215,6 @@ Style/TrailingWhitespace:
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/VariableName:
   Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false

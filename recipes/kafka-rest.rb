@@ -1,7 +1,7 @@
 
 include_recipe "confluent::_install"
 
-set_kerberos_config('kafka-rest')
+apply_kerberos_config('kafka-rest')
 
 # Kafka Rest config files
 link "/etc/kafka-rest" do

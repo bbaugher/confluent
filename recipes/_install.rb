@@ -89,6 +89,6 @@ if node["confluent"]["kerberos"]["enable"]
     source "jaas.conf.erb"
     owner node["confluent"]["user"]
     group node["confluent"]["group"]
-    mode  00755
+    mode  0o755
   end
 end

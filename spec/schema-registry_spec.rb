@@ -40,7 +40,9 @@ describe 'confluent::schema-registry' do
 
     it 'should configure java security' do
       chef_run.converge(described_recipe)
+      # rubocop:disable LineLength
       expect(chef_run.node["confluent"]["schema-registry"]["env_vars"]["-Djava.security.auth.login.config="]).to eq("#{chef_run.node["confluent"]["install_dir"]}/confluent-#{chef_run.node["confluent"]["version"]}/jaas.conf")
+      # rubocop:enable LineLength
     end
   end
 

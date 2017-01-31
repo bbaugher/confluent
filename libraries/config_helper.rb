@@ -56,8 +56,8 @@ def set_zookeeper_connect
   raise 'Unable to run kafka::default unable to determine zookeeper hosts'
 end
 
-def set_kerberos_config service
-  if node["confluent"]["kerberos"]["enable"]
-    node.default["confluent"][service]["env_vars"]["-Djava.security.auth.login.config="] = "#{node["confluent"]["install_dir"]}/confluent-#{node["confluent"]["version"]}/jaas.conf"
-  end
+def apply_kerberos_config service
+  # rubocop:disable LineLength
+  node.default["confluent"][service]["env_vars"]["-Djava.security.auth.login.config="] = "#{node["confluent"]["install_dir"]}/confluent-#{node["confluent"]["version"]}/jaas.conf" if node["confluent"]["kerberos"]["enable"]
+  # rubocop:enable LineLength
 end

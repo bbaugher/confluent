@@ -107,7 +107,7 @@ default["confluent"]["zookeeper"]["zookeeper.properties"]["dataDir"] = "/tmp/zoo
 default["confluent"]["zookeeper"]["zookeeper.properties"]["clientPort"] = "2181"
 default["confluent"]["zookeeper"]["zookeeper.properties"]["maxClientCnxns"] = "0"
 
-#Kerberos configuration
+# Kerberos configuration
 default["confluent"]["kerberos"]["enable"] = false
 # The keytab location and realm (or complete custom principal) are required if Kerberos is enabled with the above attribute
 default["confluent"]["kerberos"]["keytab"] = nil

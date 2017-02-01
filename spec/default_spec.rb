@@ -72,7 +72,7 @@ describe 'confluent::default' do
       end
     end
 
-    context 'and keytab_location not specified' do
+    context 'and keytab location not specified' do
       let(:chef_run) do
         ChefSpec::SoloRunner.new do |node|
           node.override["confluent"]["kerberos"]["enable"] = true

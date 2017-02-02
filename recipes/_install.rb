@@ -44,14 +44,14 @@ execute "unzip -q #{confluent_package} -d #{node["confluent"]["install_dir"]}" d
   end
 end
 
-cookbook_file "kafka-server-start" do
-  path File.join(node["confluent"]["install_dir"], "confluent-#{node["confluent"]["version"]}", "bin", "kafka-server-start")
+start_file = File.join(node["confluent"]["install_dir"], "confluent-#{node["confluent"]["version"]}", "bin", "kafka-server-start")
+template start_file do
+  source 'kafka-server-start.erb'
   owner node["confluent"]["user"]
   group node["confluent"]["group"]
   mode "755"
   # There is a bug in 1.0 where kafka-server-start uses the wrong log4j.properties file when running kafka
   not_if { node["confluent"]["version"] == "1.0" }
-  backup false
 end
 
 cookbook_file "kafka-server-stop" do

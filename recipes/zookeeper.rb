@@ -37,7 +37,8 @@ template "/etc/init.d/zookeeper" do
     class: 'zookeeper',
     properties_file: "zookeeper.properties",
     script: "zookeeper-server",
-    env_vars: {}
+    env_vars: {},
+    options: ''
   )
   notifies :restart, "service[zookeeper]"
 end

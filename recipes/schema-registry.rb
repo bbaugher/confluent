@@ -31,7 +31,8 @@ template "/etc/init.d/schema-registry" do
     :class => node["confluent"]["schema-registry"]["class"],
     :properties_file => "schema-registry.properties",
     :script => "schema-registry",
-    :env_vars => node["confluent"]["schema-registry"]["env_vars"]
+    :env_vars => node["confluent"]["schema-registry"]["env_vars"],
+    :options => node["confluent"]["schema-registry"]["options"]
   })
   notifies :restart, "service[schema-registry]"
 end

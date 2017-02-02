@@ -14,6 +14,7 @@ default['confluent']['kafka']['zookeepers'] = nil
 default['confluent']['kafka']['zookeeper_chroot'] = nil
 default['confluent']['kafka']['brokers'] = nil
 default["confluent"]["kafka"]["env_vars"] = {}
+default["confluent"]["kafka"]["options"] = ''
 default["confluent"]["kafka"]["class"] = "kafka.Kafka"
 
 default["confluent"]["kafka"]["log4j.properties"]["log4j.rootLogger"] = "CONSOLE,ROLLINGFILE"
@@ -31,6 +32,7 @@ default["confluent"]["kafka"]["log4j.properties"]["log4j.appender.ROLLINGFILE.la
 
 default["confluent"]["kafka-rest"]["kafka-rest.properties"] = {}
 default["confluent"]["kafka-rest"]["env_vars"] = {}
+default["confluent"]["kafka-rest"]["options"] = ''
 default["confluent"]["kafka-rest"]["class"] = "kafkarest.KafkaRestMain"
 
 default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.rootLogger"] = "CONSOLE,ROLLINGFILE"
@@ -48,6 +50,7 @@ default["confluent"]["kafka-rest"]["log4j.properties"]["log4j.appender.ROLLINGFI
 
 default["confluent"]["schema-registry"]["schema-registry.properties"]["kafkastore.connection.url"] = "localhost:2181"
 default["confluent"]["schema-registry"]["env_vars"] = {}
+default["confluent"]["schema-registry"]["options"] = ''
 default["confluent"]["schema-registry"]["class"] = "io.confluent.kafka.schemaregistry.rest.SchemaRegistryMain"
 
 default["confluent"]["schema-registry"]["log4j.properties"]["log4j.rootLogger"] = "CONSOLE,ROLLINGFILE"
@@ -86,6 +89,7 @@ default["confluent"]["kafka-connect"]["worker.properties"]["config.storage.topic
 default["confluent"]["kafka-connect"]["worker.properties"]["offset.storage.topic"] = "connect-offsets"
 
 default["confluent"]["kafka-connect"]["env_vars"] = {}
+default["confluent"]["kafka-connect"]["options"] = ''
 default["confluent"]["kafka-connect"]["distributed_class"] = "org.apache.kafka.connect.cli.ConnectDistributed"
 default["confluent"]["kafka-connect"]["standalone_class"] = "org.apache.kafka.connect.cli.ConnectStandalone"
 default["confluent"]["kafka-connect"]["standalone_connectors"] = []

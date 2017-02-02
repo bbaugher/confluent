@@ -100,7 +100,8 @@ template "/etc/init.d/kafka-connect" do
     class: connect_class,
     properties_file: node["confluent"]["kafka-connect"]["worker_properties_file_name"],
     script: "kafka-connect",
-    env_vars: node["confluent"]["kafka-connect"]["env_vars"]
+    env_vars: node["confluent"]["kafka-connect"]["env_vars"],
+    options: node["confluent"]["kafka-connect"]["options"]
   )
   notifies :restart, "service[kafka-connect]"
 end

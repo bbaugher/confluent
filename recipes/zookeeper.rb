@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 include_recipe 'confluent::_install'
 confluent_extracted_dir = "#{node['confluent']['install_dir']}/confluent-#{node['confluent']['version']}"
 

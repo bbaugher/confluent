@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 include_recipe 'confluent::_install'
 connect_class = node['confluent']['kafka-connect']['distributed_mode'] ? node['confluent']['kafka-connect']['distributed_class'] : node['confluent']['kafka-connect']['standalone_class']
 

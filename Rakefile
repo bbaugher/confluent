@@ -1,10 +1,11 @@
 # coding: UTF-8
+# frozen_string_literal: true
 require 'English'
 
 VERSION_WITH_NAME_REGEX = /version\s*'\d+\.\d+\.\d+'/
 VERSION_REGEX = /\d+\.\d+\.\d+/
 
-REPO = 'bbaugher/confluent'.freeze
+REPO = 'bbaugher/confluent'
 
 task :release do
   require 'octokit'

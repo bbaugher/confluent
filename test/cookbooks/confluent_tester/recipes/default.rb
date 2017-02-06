@@ -1,4 +1,5 @@
 
+# frozen_string_literal: true
 confluent_dir = File.join(node['confluent']['install_dir'], "confluent-#{node['confluent']['version']}")
 
 zookeeper_bin = File.join(confluent_dir, 'bin', 'zookeeper-server-start')

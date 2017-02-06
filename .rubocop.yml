@@ -86,6 +86,3 @@ Style/SpaceBeforeFirstArg:
   Exclude:
     - 'metadata.rb'
     - 'test/cookbooks/confluent_tester/metadata.rb'
-
-Style/FrozenStringLiteralComment:
-  Enabled: false

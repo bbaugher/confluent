@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 def set_broker_id
   if node['confluent']['kafka']['server.properties'].key?('broker.id')
     Chef::Log.info(

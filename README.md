@@ -84,6 +84,30 @@ You can find the logs at `/var/log/confluent/kafka-connect.log`.
 
 If you include the `recipe[confluent::zookeeper]` this will install the Confluent package and start a zookeeper process. It will listen on port 2181. This is a single zookeeper worker and is not recomended for production use. The primary purpose of this recipe is to get everything running inside vagrant as a self contained system without having to run process on the host machine.
 
+### Kerberos
+
+The cookbook helps to setup the services with kerberos enabled. To do so,
+
+ * Set `node["confluent"]["kerberos"]["enable"]` to `true`
+ * Set a value for `node["confluent"]["kerberos"]["keytab"]`
+ * Set a value for `node["confluent"]["kerberos"]["realm"]` or `node["confluent"]["kerberos"]["principal"]`
+
+The cookbook will create a JAAS configuration file to be used for the services and
+automatically include the `-Djava.security.auth.login.config` java option.
+
+The cookbook however will not handle creating and kerberos keytab files. That is
+outside the scope of this cookbook.
+
+ZooKeeper client authentication can additionally be enabled by setting
+`node["kafka"]["kerberos"]["enable_zk"]` to `true`.
+
+Custom Krb5LoginModule options can be set using the `node["kafka"]["kerberos"]["krb5_properties"]`
+attribute hash for Kafka, or `node["kafka"]["kerberos"]["zk_krb5_properties"]`
+for ZooKeeper (see attributes file for defaults).
+
+Note that enabling Kerberos does not automatically set any configuration into
+any of the service's property/config files. Those should be evaluated as well.
+
 Attributes
 ----------
 
@@ -97,6 +121,13 @@ Attributes
  * `node["confluent"]["uid"]` : optional staticly assign a uid for above user (default=`unset` picks form system config)
  * `node["confluent"]["group"]` : The group that owns the Confluent package files and runs the services (default=`confluent`)
  * `node["confluent"]["gid"]` : optional staticly assign a gid for above group (default=`unset` picks form system config)
+ * `node["confluent"]["kerberos"]["enable"]` : if kerberos configuration should be applied (default=`false`)
+ * `node["confluent"]["kerberos"]["keytab"]` : the path to the kerberos keytab file (default=`nil`)
+ * `node["confluent"]["kerberos"]["realm"]` : the name of the kerberos realm to use (default=`nil`)
+ * `node["confluent"]["kerberos"]["principal"]` : the kerberos principal to use (default is dynamically generated from other attributes. See attributes file)
+ * `node["confluent"]["kerberos"]["enable_zk"]` : if zookeeper kerberos configuration should be applied (default=`false`)
+ * `node["confluent"]["kerberos"]["krb5_properties"]` : a hash of krb5 key/values used for kerberos kafka server/client configuration (See attributes file for default)
+ * `node["confluent"]["kerberos"]["zk_krb5_properties"]` : a hash of krb5 key/values used for kerberos zookeeper client configuration (See attributes file for default)
 
 ### Kafka
 

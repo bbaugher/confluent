@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 def set_broker_id
   if node['confluent']['kafka']['server.properties'].key?('broker.id')
     Chef::Log.info(
@@ -54,4 +55,10 @@ def set_zookeeper_connect
   end
 
   raise 'Unable to run kafka::default unable to determine zookeeper hosts'
+end
+
+def apply_kerberos_config(service)
+  # rubocop:disable LineLength
+  node.default['confluent'][service]['env_vars']['-Djava.security.auth.login.config='] = "#{node['confluent']['install_dir']}/confluent-#{node['confluent']['version']}/jaas.conf" if node['confluent']['kerberos']['enable']
+  # rubocop:enable LineLength
 end

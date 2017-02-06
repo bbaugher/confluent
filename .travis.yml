@@ -3,7 +3,9 @@ bundler_args: --without release
 cache: bundler
 sudo: false
 rvm:
-  - 2.3.2
+  - 2.3.3
+# Update rubygems for issue with rainbow (https://github.com/bundler/bundler/issues/5357)
+before_install: gem update --system
 script:
 # We cannot run integration tests on travis since that uses vagrant/virtualbox and
 # is not available in travis ci

@@ -50,7 +50,7 @@ cookbook_file "kafka-server-start" do
   group node["confluent"]["group"]
   mode "755"
   # There is a bug in 1.0 where kafka-server-start uses the wrong log4j.properties file when running kafka
-  not_if { node["confluent"]["version"] == "1.0" }
+  only_if { node["confluent"]["version"] == "1.0" }
   backup false
 end
 

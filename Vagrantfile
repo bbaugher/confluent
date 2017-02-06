@@ -2,31 +2,31 @@
 # vi: set ft=ruby :
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = "2".freeze
+VAGRANTFILE_API_VERSION = '2'.freeze
 
-Vagrant.require_version ">= 1.5.0"
+Vagrant.require_version '>= 1.5.0'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.hostname = "confluent-berkshelf"
-  config.vm.provider "virtualbox" do |v|
+  config.vm.hostname = 'confluent-berkshelf'
+  config.vm.provider 'virtualbox' do |v|
     v.memory = 2048
     v.cpus = 2
   end
 
   # Set the version of chef to install using the vagrant-omnibus plugin
   config.omnibus.chef_version = :latest
-  config.vm.box = "bento/ubuntu-14.04"
+  config.vm.box = 'bento/ubuntu-14.04'
 
   # zookeeper port
-  config.vm.network "forwarded_port", guest: 2181, host: 2181
+  config.vm.network 'forwarded_port', guest: 2181, host: 2181
   # Kafka Connector rest api port
-  config.vm.network "forwarded_port", guest: 8083, host: 8083
+  config.vm.network 'forwarded_port', guest: 8083, host: 8083
   # kafka schema registry port
-  config.vm.network "forwarded_port", guest: 8081, host: 8081
+  config.vm.network 'forwarded_port', guest: 8081, host: 8081
   # kafka broker port
-  config.vm.network "forwarded_port", guest: 9092, host: 9092
+  config.vm.network 'forwarded_port', guest: 9092, host: 9092
 
-  config.vm.network :private_network, type: "dhcp"
+  config.vm.network :private_network, type: 'dhcp'
   config.berkshelf.enabled = true
 
   config.vm.provision :chef_solo do |chef|
@@ -38,8 +38,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     chef.json = {
       java: {
-        install_flavor: "oracle",
-        jdk_version: "8",
+        install_flavor: 'oracle',
+        jdk_version: '8',
         oracle: {
           accept_oracle_download_terms: true
         }

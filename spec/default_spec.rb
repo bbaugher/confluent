@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'confluent::default' do
   before do
-    Fauxhai.mock(platform:'centos', version:'6.5')
+    Fauxhai.mock(platform: 'centos', version: '6.5')
   end
 
   context 'with defaults' do
@@ -16,15 +16,14 @@ describe 'confluent::default' do
       expect(chef_run).to create_remote_file("#{Chef::Config[:file_cache_path]}/confluent-2.0.1-2.11.7.zip").with(source: 'http://packages.confluent.io/archive/2.0/confluent-2.0.1-2.11.7.zip')
       expect(chef_run).to run_execute("unzip -q #{Chef::Config[:file_cache_path]}/confluent-2.0.1-2.11.7.zip -d /opt/confluent")
     end
-
   end
 
   context 'with overrides' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.override["confluent"]["version"] = "1.2.1"
-        node.override["confluent"]["scala_version"] = "2.11.1"
-        node.override["confluent"]["install_dir"] = "/opt/confluent_other"
+        node.override['confluent']['version'] = '1.2.1'
+        node.override['confluent']['scala_version'] = '2.11.1'
+        node.override['confluent']['install_dir'] = '/opt/confluent_other'
       end
     end
 
@@ -39,9 +38,9 @@ describe 'confluent::default' do
   context 'with kerberos enabled' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.override["confluent"]["kerberos"]["enable"] = true
-        node.override["confluent"]["kerberos"]["keytab"] = '/path/to/keytab'
-        node.override["confluent"]["kerberos"]["realm"] = 'myrealm.net'
+        node.override['confluent']['kerberos']['enable'] = true
+        node.override['confluent']['kerberos']['keytab'] = '/path/to/keytab'
+        node.override['confluent']['kerberos']['realm'] = 'myrealm.net'
       end
     end
 
@@ -62,8 +61,8 @@ describe 'confluent::default' do
     context 'and realm not specified' do
       let(:chef_run) do
         ChefSpec::SoloRunner.new do |node|
-          node.override["confluent"]["kerberos"]["enable"] = true
-          node.override["confluent"]["kerberos"]["keytab"] = '/path/to/keytab'
+          node.override['confluent']['kerberos']['enable'] = true
+          node.override['confluent']['kerberos']['keytab'] = '/path/to/keytab'
         end
       end
 
@@ -75,8 +74,8 @@ describe 'confluent::default' do
     context 'and keytab location not specified' do
       let(:chef_run) do
         ChefSpec::SoloRunner.new do |node|
-          node.override["confluent"]["kerberos"]["enable"] = true
-          node.override["confluent"]["kerberos"]["realm"] = 'myrealm.net'
+          node.override['confluent']['kerberos']['enable'] = true
+          node.override['confluent']['kerberos']['realm'] = 'myrealm.net'
         end
       end
 

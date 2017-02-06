@@ -6,12 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Lint/DeprecatedClassMethods:
-  Exclude:
-    - 'recipes/_install.rb'
-
 # Offense count: 4
 Metrics/AbcSize:
   Max: 55
@@ -41,42 +35,6 @@ Metrics/PerceivedComplexity:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, ProceduralMethods, FunctionalMethods, IgnoredMethods.
-Style/BlockDelimiters:
-  Enabled: false
-
-# Offense count: 12
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/BracesAroundHashParameters:
-  Exclude:
-    - 'Rakefile'
-    - 'recipes/_install.rb'
-    - 'recipes/zookeeper.rb'
-    - 'recipes/kafka-rest.rb'
-    - 'recipes/kafka.rb'
-    - 'recipes/schema-registry.rb'
-    - 'recipes/kafka-connect.rb'
-
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/EmptyLinesAroundBlockBody:
-  Exclude:
-    - 'spec/default_spec.rb'
-    - 'spec/kafka-rest_spec.rb'
-    - 'spec/kafka-connect_spec.rb'
-    - 'spec/kafka_spec.rb'
-    - 'spec/schema-registry_spec.rb'
-
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/EmptyLiteral:
-  Exclude:
-    - 'Rakefile'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: AllowForAlignment.
 Style/ExtraSpacing:
   Exclude:
@@ -87,8 +45,8 @@ Style/ExtraSpacing:
 Style/FileName:
   Exclude:
     - 'recipes/kafka-rest.rb'
-    - 'recipes/schema-registry.rb'
     - 'recipes/kafka-connect.rb'
+    - 'recipes/schema-registry.rb'
     - 'spec/kafka-rest_spec.rb'
     - 'spec/schema-registry_spec.rb'
     - 'spec/kafka-connect_spec.rb'
@@ -101,12 +59,6 @@ Style/FileName:
 Style/GuardClause:
   Exclude:
     - 'Rakefile'
-
-# Offense count: 25
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, UseHashRocketsWithSymbolValues.
-Style/HashSyntax:
-  Enabled: false
 
 # Offense count: 3
 # Cop supports --auto-correct.
@@ -121,100 +73,19 @@ Style/IndentArray:
   Exclude:
     - 'Vagrantfile'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/IndentHash:
-  Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: Width.
-Style/IndentationWidth:
-  Exclude:
-    - 'recipes/_install.rb'
-
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/MethodDefParentheses:
-  Enabled: false
-
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/SignalException:
   Exclude:
     - 'Rakefile'
-    - 'libraries/config_helper.rb'
 
 # Offense count: 12
 # Cop supports --auto-correct.
 Style/SpaceBeforeFirstArg:
   Exclude:
     - 'metadata.rb'
-    - 'recipes/_install.rb'
     - 'test/cookbooks/confluent_tester/metadata.rb'
-
-# Offense count: 8
-# Cop supports --auto-correct.
-Style/SpaceAfterColon:
-  Exclude:
-    - 'spec/default_spec.rb'
-    - 'spec/kafka-rest_spec.rb'
-    - 'spec/kafka-connect_spec.rb'
-    - 'spec/kafka_spec.rb'
-    - 'spec/schema-registry_spec.rb'
-
-# Offense count: 18
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SupportedStyles.
-Style/SpaceInsideHashLiteralBraces:
-  Enabled: false
-
-# Offense count: 503
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/StringLiterals:
-  Enabled: false
-
-# Offense count: 31
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/StringLiteralsInInterpolation:
-  Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/Tab:
-  Exclude:
-    - 'recipes/_install.rb'
-
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/TrailingBlankLines:
-  Exclude:
-    - 'Berksfile'
-    - 'recipes/default.rb'
-    - 'test/cookbooks/confluent_tester/metadata.rb'
-    - 'test/cookbooks/confluent_tester/recipes/default.rb'
-    - 'test/integration/default/serverspec/default_spec.rb'
-    - 'test/integration/default/serverspec/kafka_spec.rb'
-    - 'test/integration/default/serverspec/schema-registry_spec.rb'
-    - 'test/integration/default/serverspec/spec_helper.rb'
-
-# Offense count: 35
-# Cop supports --auto-correct.
-Style/TrailingWhitespace:
-  Exclude:
-    - 'Rakefile'
-    - 'Vagrantfile'
-
-# Offense count: 2
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/VariableName:
-  Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false

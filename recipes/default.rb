@@ -1,2 +1,2 @@
 
-include_recipe "confluent::_install"
+include_recipe 'confluent::_install'

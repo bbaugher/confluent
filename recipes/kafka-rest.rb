@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 include_recipe 'confluent::_install'
 
-apply_kerberos_config('kafka-rest')
+apply_kerberos_config('kafka-rest', 'KAFKAREST_OPTS')
 
 # Kafka Rest config files
 link '/etc/kafka-rest' do

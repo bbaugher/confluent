@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 include_recipe 'confluent::_install'
 
-apply_kerberos_config('schema-registry')
+apply_kerberos_config('schema-registry', 'SCHEMA_REGISTRY_OPTS')
 
 template '/etc/schema-registry/schema-registry.properties' do
   source 'properties.erb'

@@ -12,3 +12,19 @@ bash 'start zookeeper' do
     #{zookeeper_bin} #{zookeeper_config} &
   EOH
 end
+
+share_dir = File.join(confluent_dir, 'share', 'java/kafka-connect-all')
+
+directory share_dir do
+  mode '0755'
+  owner node['confluent']['user']
+  group node['confluent']['group']
+end
+
+# For connect testing
+file File.join(share_dir, 'my.jar') do
+  content 'value'
+  mode '0755'
+  owner node['confluent']['user']
+  group node['confluent']['group']
+end

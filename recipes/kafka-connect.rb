@@ -3,7 +3,7 @@ include_recipe 'confluent::_install'
 connect_class = node['confluent']['kafka-connect']['distributed_mode'] ? node['confluent']['kafka-connect']['distributed_class'] : node['confluent']['kafka-connect']['standalone_class']
 
 confluent_extracted_dir = File.join(node['confluent']['install_dir'], "confluent-#{node['confluent']['version']}")
-connect_jdbc_jar_dir = File.join confluent_extracted_dir, 'share/java/kafka-connect-all'
+connect_share_dir = File.join confluent_extracted_dir, 'share', 'java/kafka-connect-all'
 
 apply_kerberos_config('kafka-connect', 'KAFKA_OPTS')
 
@@ -13,7 +13,7 @@ directory "#{confluent_extracted_dir}/etc/kafka-connect" do
   mode '755'
 end
 
-directory "#{confluent_extracted_dir}/share/java/kafka-connect-all" do
+directory connect_share_dir do
   owner node['confluent']['user']
   group node['confluent']['group']
   mode '755'
@@ -26,7 +26,7 @@ end
 # Drops in any jars a remote url was provided for
 node['confluent']['kafka-connect']['jar_urls'].each do |kafka_connect_jar_url|
   file_name = File.basename(kafka_connect_jar_url)
-  remote_file "#{connect_jdbc_jar_dir}/#{file_name}" do
+  remote_file "#{connect_share_dir}/#{file_name}" do
     source kafka_connect_jar_url
     owner node['confluent']['user']
     group node['confluent']['group']
@@ -34,6 +34,21 @@ node['confluent']['kafka-connect']['jar_urls'].each do |kafka_connect_jar_url|
     action :create_if_missing
     backup false
     notifies :restart, 'service[kafka-connect]'
+  end
+end
+
+ruby_block "Clean unreferenced Kafka Connect jars" do
+  block do
+    configured_jar_files = node['confluent']['kafka-connect']['jar_urls'].map{ |url| File.basename(url) }
+    all_jar_files = Dir.entries(connect_share_dir)
+      .select{|file| file != '.' && file != '..' }
+
+    jar_files_to_remove = all_jar_files - configured_jar_files
+
+    jar_files_to_remove.each do |file|
+      Chef::Log.info("Removing file [#{file}] from connect share directory as its no longer configured in jar_urls")
+      File.delete(File.join(connect_share_dir, file))
+    end
   end
 end
 

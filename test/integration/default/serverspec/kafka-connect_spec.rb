@@ -29,6 +29,10 @@ describe file('/opt/confluent/confluent-2.0.1/share/java/kafka-connect-all/chef-
   it { should be_mode 755 }
 end
 
+describe file('/opt/confluent/confluent-2.0.1/share/java/kafka-connect-all/my.jar') do
+  it { should_not exist }
+end
+
 describe file('/etc/kafka-connect/test_worker.properties') do
   it { should be_file }
   it { should be_owned_by 'confluent' }

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 include_recipe 'confluent::_install'
 
 set_broker_id
@@ -39,7 +40,7 @@ template '/etc/init.d/kafka' do
 end
 
 service 'kafka' do
-  action [:enable, :start]
+  action %i[enable start]
   if node['confluent']['kerberos']['enable']
     subscribes :restart, "template[#{node['confluent']['install_dir']}/confluent-#{node['confluent']['version']}/jaas.conf]"
   end

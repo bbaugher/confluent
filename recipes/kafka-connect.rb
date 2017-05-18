@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 include_recipe 'confluent::_install'
 connect_class = node['confluent']['kafka-connect']['distributed_mode'] ? node['confluent']['kafka-connect']['distributed_class'] : node['confluent']['kafka-connect']['standalone_class']
 
@@ -37,11 +38,11 @@ node['confluent']['kafka-connect']['jar_urls'].each do |kafka_connect_jar_url|
   end
 end
 
-ruby_block "Clean unreferenced Kafka Connect jars" do
+ruby_block 'Clean unreferenced Kafka Connect jars' do
   block do
-    configured_jar_files = node['confluent']['kafka-connect']['jar_urls'].map{ |url| File.basename(url) }
+    configured_jar_files = node['confluent']['kafka-connect']['jar_urls'].map { |url| File.basename(url) }
     all_jar_files = Dir.entries(connect_share_dir)
-      .select{|file| file != '.' && file != '..' }
+                       .select { |file| file != '.' && file != '..' }
 
     jar_files_to_remove = all_jar_files - configured_jar_files
 
@@ -124,7 +125,7 @@ template '/etc/init.d/kafka-connect' do
 end
 
 service 'kafka-connect' do
-  action [:enable, :start]
+  action %i[enable start]
   if node['confluent']['kerberos']['enable']
     subscribes :restart, "template[#{node['confluent']['install_dir']}/confluent-#{node['confluent']['version']}/jaas.conf]"
   end

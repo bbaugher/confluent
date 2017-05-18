@@ -1,11 +1,12 @@
 # coding: UTF-8
 # frozen_string_literal: true
+
 require 'English'
 
 VERSION_WITH_NAME_REGEX = /version\s*'\d+\.\d+\.\d+'/
 VERSION_REGEX = /\d+\.\d+\.\d+/
 
-REPO = 'bbaugher/confluent'.freeze
+REPO = 'bbaugher/confluent'
 
 task :release do
   require 'octokit'
@@ -172,7 +173,6 @@ def update_change_log(version)
   change_log = File.open('CHANGELOG.md', 'w')
 
   begin
-
     # Keep change log title
     change_log.write change_log_lines.shift
     change_log.write "\n"
@@ -188,7 +188,6 @@ def update_change_log(version)
       change_log.write line
       change_log.write "\n"
     end
-
   ensure
     change_log.close
   end

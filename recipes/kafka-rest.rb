@@ -1,5 +1,6 @@
 
 # frozen_string_literal: true
+
 include_recipe 'confluent::_install'
 
 apply_kerberos_config('kafka-rest', 'KAFKAREST_OPTS')
@@ -43,7 +44,7 @@ template '/etc/init.d/kafka-rest' do
 end
 
 service 'kafka-rest' do
-  action [:enable, :start]
+  action %i[enable start]
   if node['confluent']['kerberos']['enable']
     subscribes :restart, "template[#{node['confluent']['install_dir']}/confluent-#{node['confluent']['version']}/jaas.conf]"
   end

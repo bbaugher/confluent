@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 name             'confluent_tester'
 maintainer       'YOUR_COMPANY_NAME'
 maintainer_email 'YOUR_EMAIL'

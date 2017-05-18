@@ -6,7 +6,7 @@ require 'English'
 VERSION_WITH_NAME_REGEX = /version\s*'\d+\.\d+\.\d+'/
 VERSION_REGEX = /\d+\.\d+\.\d+/
 
-REPO = 'bbaugher/confluent'
+REPO = 'bbaugher/confluent'.freeze
 
 task :release do
   require 'octokit'

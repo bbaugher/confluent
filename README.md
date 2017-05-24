@@ -152,7 +152,7 @@ Attributes
 
 ### Kafka Connect
 * `node["confluent"]["kafka-connect"]["jar_urls"]` : an array of urls to remote files to download and install in the directory `share/java/kafka-connect-all` located in the extracted confluent directory which is where connect looks by default.
-* `node["confluent"]["kafka-connect"]["properties_files"]` : a hash where the key is a property file name, and the value is a hash of keys/values for the property file. Used to drop in property files via chef config as opposed to the rest api.
+* `node["confluent"]["kafka-connect"]["properties_files"]` : a hash where the key is a property file name, and the value is a hash of keys/values for the property file. Used to drop in property files (connector configuration for standalone mode) via chef config as opposed to the rest api.
 * `node["confluent"]["kafka-connect"]["distributed_mode"]` : Boolean used to decide if it should launch in standalone or distributed mode. Defaults to true
 * `node["confluent"]["kafka-connect"]["worker_properties_file_name"]` : The name of the properties file to use when starting the connect service.
 * `node["confluent"]["kafka-connect"]["worker.properties"]` : hash of properties to configure the connect properties with.

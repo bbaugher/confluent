@@ -49,7 +49,8 @@ describe 'confluent::default' do
     it 'should config JAAS' do
       chef_run.converge(described_recipe)
       expect(chef_run).to create_template('/opt/confluent/confluent-2.0.1/jaas.conf')
-      expect(chef_run).to render_file('/opt/confluent/confluent-2.0.1/jaas.conf').with_content do |content|
+      # rubocop:disable Lint/AmbiguousBlockAssociation
+      expect(chef_run).to render_file('/opt/confluent/confluent-2.0.1/jaas.conf').with_content { |content|
         expect(content).to include('KafkaServer {')
         expect(content).to include('com.sun.security.auth.module.Krb5LoginModule required')
         expect(content).to include('useKeyTab=true')
@@ -57,7 +58,8 @@ describe 'confluent::default' do
         expect(content).to include('keyTab="/path/to/keytab"')
         expect(content).to include('principal="confluent/fauxhai.local@myrealm.net"')
         expect(content).to include('KafkaClient {')
-      end
+      }
+      # rubocop:enable Lint/AmbiguousBlockAssociation
     end
 
     context 'and realm not specified' do

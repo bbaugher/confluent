@@ -4,7 +4,7 @@ include_recipe 'confluent::_install'
 connect_class = node['confluent']['kafka-connect']['distributed_mode'] ? node['confluent']['kafka-connect']['distributed_class'] : node['confluent']['kafka-connect']['standalone_class']
 
 confluent_extracted_dir = File.join(node['confluent']['install_dir'], "confluent-#{node['confluent']['version']}")
-connect_share_dir = File.join confluent_extracted_dir, 'share', 'java/kafka-connect-all'
+connect_share_dir = File.join confluent_extracted_dir, 'share', 'java', 'kafka-connect-all'
 
 apply_kerberos_config('kafka-connect', 'KAFKA_OPTS')
 

@@ -42,7 +42,7 @@ ruby_block 'Clean unreferenced Kafka Connect jars' do
   block do
     configured_jar_files = node['confluent']['kafka-connect']['jar_urls'].map { |url| File.basename(url) }
     all_jar_files = Dir.entries(connect_share_dir)
-                       .select { |file| file != '.' && file != '..' }
+                       .reject { |file| file == '.' || file == '..' }
 
     jar_files_to_remove = all_jar_files - configured_jar_files
 

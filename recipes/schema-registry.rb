@@ -1,5 +1,6 @@
 
 # frozen_string_literal: true
+
 include_recipe 'confluent::_install'
 
 apply_kerberos_config('schema-registry', 'SCHEMA_REGISTRY_OPTS')
@@ -38,7 +39,7 @@ template '/etc/init.d/schema-registry' do
 end
 
 service 'schema-registry' do
-  action [:enable, :start]
+  action %i[enable start]
   if node['confluent']['kerberos']['enable']
     subscribes :restart, "template[#{node['confluent']['install_dir']}/confluent-#{node['confluent']['version']}/jaas.conf]"
   end

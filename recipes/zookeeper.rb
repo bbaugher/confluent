@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 include_recipe 'confluent::_install'
 confluent_extracted_dir = "#{node['confluent']['install_dir']}/confluent-#{node['confluent']['version']}"
 
@@ -44,5 +45,5 @@ template '/etc/init.d/zookeeper' do
 end
 
 service 'zookeeper' do
-  action [:enable, :start]
+  action %i[enable start]
 end

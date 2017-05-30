@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 name            'confluent'
 maintainer       'Bryan Baugher'
 maintainer_email 'Bryan.Baugher@Cerner.com'

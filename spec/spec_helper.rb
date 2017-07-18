@@ -5,7 +5,7 @@ require 'chefspec/berkshelf'
 
 RSpec.configure do |config|
   config.platform = 'redhat'
-  config.version = '6.6'
+  config.version = '6.9'
 end
 
 at_exit { ChefSpec::Coverage.report! }

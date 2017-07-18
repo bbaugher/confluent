@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe 'confluent::kafka' do
   before do
-    Fauxhai.mock(platform: 'centos', version: '6.5')
+    Fauxhai.mock(platform: 'centos', version: '6.7')
   end
 
   let(:chef_run) do

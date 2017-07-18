@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-default['confluent']['version'] = '2.0.1'
-default['confluent']['scala_version'] = '2.11.7'
+default['confluent']['version'] = '3.2.2'
+default['confluent']['scala_version'] = '2.11'
 
 version_numbers = node['confluent']['version'].split('.')
 archive_version = "#{version_numbers[0]}.#{version_numbers[1]}"
 
-default['confluent']['artifact_url'] = File.join('http://packages.confluent.io/archive', archive_version, "confluent-#{node['confluent']['version']}-#{node['confluent']['scala_version']}.zip")
+default['confluent']['artifact_url'] = File.join('http://packages.confluent.io/archive', archive_version, "confluent-oss-#{node['confluent']['version']}-#{node['confluent']['scala_version']}.zip")
 default['confluent']['install_dir'] = '/opt/confluent'
 default['confluent']['user'] = 'confluent'
 default['confluent']['group'] = 'confluent'
@@ -86,6 +86,7 @@ default['confluent']['kafka-connect']['worker.properties']['offset.storage.file.
 default['confluent']['kafka-connect']['worker.properties']['group.id'] = 'connect-cluster'
 default['confluent']['kafka-connect']['worker.properties']['config.storage.topic'] = 'connect-configs'
 default['confluent']['kafka-connect']['worker.properties']['offset.storage.topic'] = 'connect-offsets'
+default['confluent']['kafka-connect']['worker.properties']['status.storage.topic'] = 'connect-status'
 
 default['confluent']['kafka-connect']['env_vars'] = {}
 default['confluent']['kafka-connect']['distributed_class'] = 'org.apache.kafka.connect.cli.ConnectDistributed'

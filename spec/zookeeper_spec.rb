@@ -13,7 +13,7 @@ describe 'confluent::zookeeper' do
     end
   end
 
-  let(:extracted_directory) { '/opt/confluent/confluent-2.0.1' }
+  let(:extracted_directory) { '/opt/confluent/confluent-3.2.2' }
 
   it 'should create a link to kafka directory where confluent files are stored' do
     expect(chef_run.converge(described_recipe)).to create_link('/etc/kafka')

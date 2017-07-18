@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe 'confluent::kafka-connect' do
   before do
-    Fauxhai.mock(platform: 'centos', version: '6.7')
+    Fauxhai.mock(platform: 'centos', version: '6.9')
   end
 
   let(:chef_run) do
@@ -16,7 +16,7 @@ describe 'confluent::kafka-connect' do
     end
   end
 
-  let(:extracted_directory) { '/opt/confluent/confluent-2.0.1' }
+  let(:extracted_directory) { '/opt/confluent/confluent-3.2.2' }
   let(:kafka_confluent_properties_template) { chef_run.template("#{extracted_directory}/etc/kafka-connect/kafka-connect.properties") }
   let(:log4j_template) { chef_run.template("#{extracted_directory}/etc/kafka/connect-log4j.properties") }
 

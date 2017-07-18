@@ -64,20 +64,6 @@ template "/etc/kafka-connect/#{node['confluent']['kafka-connect']['worker_proper
   notifies :restart, 'service[kafka-connect]'
 end
 
-# Allows for easily writing custom jdbc connector properties files at deployment time instead of via the rest api
-node['confluent']['kafka-connect']['properties_files'].each do |property_file_name, properties|
-  # Must use real directory instead of symblink
-  template "#{confluent_extracted_dir}/etc/kafka-connect/#{property_file_name}" do
-    source 'properties.erb'
-    owner node['confluent']['user']
-    group node['confluent']['group']
-    mode '755'
-    variables(properties: properties)
-    backup false
-    notifies :restart, 'service[kafka-connect]'
-  end
-end
-
 template "#{confluent_extracted_dir}/etc/kafka/connect-log4j.properties" do
   source 'properties.erb'
   owner node['confluent']['user']
@@ -129,4 +115,14 @@ service 'kafka-connect' do
   if node['confluent']['kerberos']['enable']
     subscribes :restart, "template[#{node['confluent']['install_dir']}/confluent-#{node['confluent']['version']}/jaas.conf]"
   end
+end
+
+# Allows for easily writing custom jdbc connector properties files at deployment time instead of via the rest api
+node['confluent']['kafka-connect']['properties_files'].each do |property_file_name, properties|
+    http_request "PUT connector #{property_file_name}" do
+      url "http://localhost:8083/connectors/#{property_file_name}/config"
+      action :put
+      message properties.to_json
+      headers ({ "Content-Type" => "application/json" })
+    end
 end

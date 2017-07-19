@@ -38,20 +38,20 @@ node['confluent']['kafka-connect']['jar_urls'].each do |kafka_connect_jar_url|
   end
 end
 
-ruby_block 'Clean unreferenced Kafka Connect jars' do
-  block do
-    configured_jar_files = node['confluent']['kafka-connect']['jar_urls'].map { |url| File.basename(url) }
-    all_jar_files = Dir.entries(connect_share_dir)
-                       .reject { |file| file == '.' || file == '..' }
+# ruby_block 'Clean unreferenced Kafka Connect jars' do
+#   block do
+#     configured_jar_files = node['confluent']['kafka-connect']['jar_urls'].map { |url| File.basename(url) }
+#     all_jar_files = Dir.entries(connect_share_dir)
+#                        .reject { |file| file == '.' || file == '..' }
 
-    jar_files_to_remove = all_jar_files - configured_jar_files
+#     jar_files_to_remove = all_jar_files - configured_jar_files
 
-    jar_files_to_remove.each do |file|
-      Chef::Log.info("Removing file [#{file}] from connect share directory as its no longer configured in jar_urls")
-      File.delete(File.join(connect_share_dir, file))
-    end
-  end
-end
+#     jar_files_to_remove.each do |file|
+#       Chef::Log.info("Removing file [#{file}] from connect share directory as its no longer configured in jar_urls")
+#       File.delete(File.join(connect_share_dir, file))
+#     end
+#   end
+# end
 
 # writes a properties file to be utilized by the connect worker
 template "/etc/kafka-connect/#{node['confluent']['kafka-connect']['worker_properties_file_name']}" do

@@ -12,4 +12,4 @@ supports 'centos'
 
 depends 'java'
 
-version '1.2.0.Distributed'
+version '1.3.0

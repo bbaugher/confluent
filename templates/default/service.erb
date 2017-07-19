@@ -32,6 +32,11 @@ STOP_SERVER_CMD="$BIN_DIR/$SCRIPT-stop 2> /var/log/confluent/$NAME-service.out"
 export <%= k %>="<%= v %>"
 <% end -%>
 
+##For Kafka Monitoring
+KAFKA_PIDFILE=/var/run/$NAME.pid
+mkdir -p $(dirname $KAFKA_PIDFILE)
+chown $USER $(dirname $KAFKA_PIDFILE) || true
+
 start() {
   findPid
 
@@ -48,6 +53,11 @@ start() {
   else
     echo "$NAME is already running"
   fi
+#Generating PID File
+sleep $SLEEP_TIME
+findPid
+echo $FOUND_PID >$KAFKA_PIDFILE
+
 }
 
 stop() {
@@ -77,6 +87,8 @@ stop() {
       findPid
     done
   fi
+  #Removing PID File
+  rm -f $KAFKA_PIDFILE
 
 }
 

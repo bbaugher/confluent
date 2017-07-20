@@ -24,6 +24,13 @@ directory node['confluent']['install_dir'] do
   mode '755'
 end
 
+# create confluent pid directory
+directory node['confluent']['pid_dir'] do
+  owner node['confluent']['user']
+  group node['confluent']['group']
+  mode '755'
+end
+
 directory '/var/log/confluent' do
   owner node['confluent']['user']
   group node['confluent']['group']

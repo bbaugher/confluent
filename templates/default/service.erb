@@ -33,8 +33,7 @@ export <%= k %>="<%= v %>"
 <% end -%>
 
 ##For Kafka Monitoring
-KAFKA_PIDFILE=/var/run/$NAME.pid
-mkdir -p $(dirname $KAFKA_PIDFILE)
+KAFKA_PIDFILE=<%= node["confluent"]["pid_dir"] %>/$NAME.pid
 chown $USER $(dirname $KAFKA_PIDFILE) || true
 
 start() {
@@ -53,11 +52,10 @@ start() {
   else
     echo "$NAME is already running"
   fi
-#Generating PID File
-sleep $SLEEP_TIME
-findPid
-echo $FOUND_PID >$KAFKA_PIDFILE
-
+  #Generating PID File
+  sleep $SLEEP_TIME
+  findPid
+  echo $FOUND_PID >$KAFKA_PIDFILE
 }
 
 stop() {
@@ -89,7 +87,6 @@ stop() {
   fi
   #Removing PID File
   rm -f $KAFKA_PIDFILE
-
 }
 
 status() {

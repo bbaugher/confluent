@@ -34,7 +34,6 @@ export <%= k %>="<%= v %>"
 
 ##For Kafka Monitoring
 KAFKA_PIDFILE=<%= node["confluent"]["pid_dir"] %>/$NAME.pid
-chown $USER $(dirname $KAFKA_PIDFILE) || true
 
 start() {
   findPid

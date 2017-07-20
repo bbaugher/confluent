@@ -40,7 +40,7 @@ end
 
 # ruby_block 'Clean unreferenced Kafka Connect jars' do
 #   block do
-#     configured_jar_files = node['confluent']['kafka-connect']['jar_urls'].map { |url| File.basename(url) }
+#     configured_jar_files = node['confluent']['kaworker.start.stop.threadsfka-connect']['jar_urls'].map { |url| File.basename(url) }
 #     all_jar_files = Dir.entries(connect_share_dir)
 #                        .reject { |file| file == '.' || file == '..' }
 
@@ -62,6 +62,19 @@ template "/etc/kafka-connect/#{node['confluent']['kafka-connect']['worker_proper
   variables(properties: node['confluent']['kafka-connect']['worker.properties'])
   backup false
   notifies :restart, 'service[kafka-connect]'
+end
+
+node['confluent']['kafka-connect']['properties_files'].each do |property_file_name, properties|
+  # Must use real directory instead of symblink
+  template "#{confluent_extracted_dir}/etc/kafka-connect/#{property_file_name}" do
+    source 'properties.erb'
+    owner node['confluent']['user']
+    group node['confluent']['group']
+    mode '755'
+    variables(properties: properties)
+    backup false
+    notifies :restart, 'service[kafka-connect]'
+  end
 end
 
 template "#{confluent_extracted_dir}/etc/kafka/connect-log4j.properties" do
@@ -118,11 +131,11 @@ service 'kafka-connect' do
 end
 
 # Allows for easily writing custom jdbc connector properties files at deployment time instead of via the rest api
-node['confluent']['kafka-connect']['properties_files'].each do |property_file_name, properties|
-    http_request "PUT connector #{property_file_name}" do
-      url "http://localhost:8083/connectors/#{property_file_name}/config"
-      action :put
-      message properties.to_json
-      headers ({ "Content-Type" => "application/json" })
-    end
-end
+# node['confluent']['kafka-connect']['properties_files'].each do |property_file_name, properties|
+#     http_request "PUT connector #{property_file_name}" do
+#       url "http://localhost:8083/connectors/#{property_file_name}/config"
+#       action :put
+#       message properties.to_json
+#       headers ({ "Content-Type" => "application/json" })
+#     end
+# end

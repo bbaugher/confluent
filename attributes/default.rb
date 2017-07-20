@@ -11,7 +11,7 @@ default['confluent']['install_dir'] = '/opt/confluent'
 default['confluent']['user'] = 'confluent'
 default['confluent']['group'] = 'confluent'
 
-default['confluent']['pid_dir'] = '/opt/confluent'
+default['confluent']['pid_dir'] = '/opt/confluent/pid/'
 
 default['confluent']['kafka']['server.properties'] = {}
 default['confluent']['kafka']['zookeepers'] = nil

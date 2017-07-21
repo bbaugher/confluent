@@ -64,18 +64,18 @@ template "/etc/kafka-connect/#{node['confluent']['kafka-connect']['worker_proper
   notifies :restart, 'service[kafka-connect]'
 end
 
-# node['confluent']['kafka-connect']['properties_files'].each do |property_file_name, properties|
-#   # Must use real directory instead of symblink
-#   template "#{confluent_extracted_dir}/etc/kafka-connect/#{property_file_name}" do
-#     source 'properties.erb'
-#     owner node['confluent']['user']
-#     group node['confluent']['group']
-#     mode '755'
-#     variables(properties: properties)
-#     backup false
-#     notifies :restart, 'service[kafka-connect]'
-#   end
-# end
+node['confluent']['kafka-connect']['properties_files'].each do |property_file_name, properties|
+  # Must use real directory instead of symblink
+  template "#{confluent_extracted_dir}/etc/kafka-connect/#{property_file_name}" do
+    source 'properties.erb'
+    owner node['confluent']['user']
+    group node['confluent']['group']
+    mode '755'
+    variables(properties: properties)
+    backup false
+    notifies :restart, 'service[kafka-connect]'
+  end
+end
 
 template "#{confluent_extracted_dir}/etc/kafka/connect-log4j.properties" do
   source 'properties.erb'

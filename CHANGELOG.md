@@ -1,6 +1,15 @@
 Change Log
 ==========
 
+[1.2.0 - 07-24-2017](https://github.com/bbaugher/confluent/issues?milestone=7&state=closed)
+-------------------------------------------------------------------------------------------
+
+  * [Enhancement] [Issue-26](https://github.com/bbaugher/confluent/issues/26) : PID File generation for Kafka Monitoring
+  * [Bug] [Issue-25](https://github.com/bbaugher/confluent/issues/25) : Fixed usage of extra kafka connect attribute standalone_connectors to…
+  * [Enhancement] [Issue-23](https://github.com/bbaugher/confluent/issues/23) : Connect should clean up jars not referenced in jar_urls
+  * [Bug] [Issue-20](https://github.com/bbaugher/confluent/issues/20) : Bug with replacing kafka start script
+  * [Enhancement] [Issue-18](https://github.com/bbaugher/confluent/issues/18) : Added support for kerberos
+
 [1.1.0 - 12-14-2016](https://github.com/bbaugher/confluent/issues?milestone=6&state=closed)
 -------------------------------------------------------------------------------------------
 

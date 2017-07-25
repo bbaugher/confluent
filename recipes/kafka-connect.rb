@@ -33,7 +33,7 @@ node['confluent']['kafka-connect']['jar_urls'].each do |kafka_connect_jar_url|
     group node['confluent']['group']
     mode '755'
     action :create_if_missing
-    backup false
+    backup node['confluent']['backup_templates']
     notifies :restart, 'service[kafka-connect]'
   end
 end
@@ -60,7 +60,7 @@ template "/etc/kafka-connect/#{node['confluent']['kafka-connect']['worker_proper
   group node['confluent']['group']
   mode '755'
   variables(properties: node['confluent']['kafka-connect']['worker.properties'])
-  backup false
+  backup node['confluent']['backup_templates']
   notifies :restart, 'service[kafka-connect]'
 end
 
@@ -73,7 +73,7 @@ node['confluent']['kafka-connect']['properties_files'].each do |property_file_na
     group node['confluent']['group']
     mode '755'
     variables(properties: properties)
-    backup false
+    backup node['confluent']['backup_templates']
     notifies :restart, 'service[kafka-connect]'
   end
 end
@@ -84,7 +84,7 @@ template "#{confluent_extracted_dir}/etc/kafka/connect-log4j.properties" do
   group node['confluent']['group']
   mode '755'
   variables(properties: node['confluent']['kafka-connect']['log4j.properties'])
-  backup false
+  backup node['confluent']['backup_templates']
   notifies :restart, 'service[kafka-connect]'
 end
 
@@ -93,7 +93,7 @@ template "#{confluent_extracted_dir}/bin/kafka-connect-start" do
   owner node['confluent']['user']
   group node['confluent']['group']
   mode '755'
-  backup false
+  backup node['confluent']['backup_templates']
   notifies :restart, 'service[kafka-connect]'
 end
 
@@ -105,7 +105,7 @@ template "#{confluent_extracted_dir}/bin/kafka-connect-stop" do
   variables(
     process_name: connect_class
   )
-  backup false
+  backup node['confluent']['backup_templates']
   notifies :restart, 'service[kafka-connect]'
 end
 

@@ -44,7 +44,7 @@ confluent_package = File.join(Chef::Config[:file_cache_path], File.basename(node
 
 remote_file confluent_package do
   source node['confluent']['artifact_url']
-  backup false
+  backup node['confluent']['backup_templates']
 end
 
 execute "unzip -q #{confluent_package} -d #{node['confluent']['install_dir']}" do
@@ -60,7 +60,7 @@ cookbook_file 'kafka-server-start' do
   mode '755'
   # There is a bug in 1.0 where kafka-server-start uses the wrong log4j.properties file when running kafka
   only_if { node['confluent']['version'] == '1.0' }
-  backup false
+  backup node['confluent']['backup_templates']
 end
 
 cookbook_file 'kafka-server-stop' do
@@ -70,7 +70,7 @@ cookbook_file 'kafka-server-stop' do
   mode '755'
   # There is a bug in 2.0.0/2.0.1 where kafka-server-stop uses the looks for the wrong class to stop the process
   only_if { node['confluent']['version'] == '2.0.0' || node['confluent']['version'] == '2.0.1' }
-  backup false
+  backup node['confluent']['backup_templates']
 end
 
 # Ensure everything is owned by the confluent user/group

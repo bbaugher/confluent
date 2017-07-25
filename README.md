@@ -121,6 +121,7 @@ Attributes
  * `node["confluent"]["uid"]` : optional staticly assign a uid for above user (default=`unset` picks form system config)
  * `node["confluent"]["group"]` : The group that owns the Confluent package files and runs the services (default=`confluent`)
  * `node["confluent"]["gid"]` : optional staticly assign a gid for above group (default=`unset` picks form system config)
+ * `node["confluent"]["backup_templates"]` : toggle backups for template resources (default=`false`)
  * `node["confluent"]["kerberos"]["enable"]` : if kerberos configuration should be applied (default=`false`)
  * `node["confluent"]["kerberos"]["keytab"]` : the path to the kerberos keytab file (default=`nil`)
  * `node["confluent"]["kerberos"]["realm"]` : the name of the kerberos realm to use (default=`nil`)

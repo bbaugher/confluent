@@ -11,7 +11,7 @@ template '/etc/schema-registry/schema-registry.properties' do
   group node['confluent']['group']
   mode '755'
   variables(properties: node['confluent']['schema-registry']['schema-registry.properties'])
-  backup false
+  backup node['confluent']['backup_templates']
   notifies :restart, 'service[schema-registry]'
 end
 
@@ -21,7 +21,7 @@ template '/etc/schema-registry/log4j.properties' do
   group node['confluent']['group']
   mode '755'
   variables(properties: node['confluent']['schema-registry']['log4j.properties'])
-  backup false
+  backup node['confluent']['backup_templates']
   notifies :restart, 'service[schema-registry]'
 end
 

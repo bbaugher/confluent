@@ -16,7 +16,7 @@ template '/etc/kafka-rest/kafka-rest.properties' do
   group node['confluent']['group']
   mode '755'
   variables(properties: node['confluent']['kafka-rest']['kafka-rest.properties'])
-  backup false
+  backup node['confluent']['backup_templates']
   notifies :restart, 'service[kafka-rest]'
 end
 
@@ -26,7 +26,7 @@ template '/etc/kafka-rest/log4j.properties' do
   group node['confluent']['group']
   mode '755'
   variables(properties: node['confluent']['kafka-rest']['log4j.properties'])
-  backup false
+  backup node['confluent']['backup_templates']
   notifies :restart, 'service[kafka-rest]'
 end
 

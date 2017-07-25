@@ -13,6 +13,8 @@ default['confluent']['group'] = 'confluent'
 
 default['confluent']['pid_dir'] = '/opt/confluent/pid/'
 
+default['confluent']['backup_templates'] = false
+
 default['confluent']['kafka']['server.properties'] = {}
 default['confluent']['kafka']['zookeepers'] = nil
 default['confluent']['kafka']['zookeeper_chroot'] = nil

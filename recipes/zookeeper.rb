@@ -15,7 +15,7 @@ template "#{confluent_extracted_dir}/bin/zookeeper-server-stop" do
   variables(
     process_name: 'zookeeper'
   )
-  backup false
+  backup node['confluent']['backup_templates']
   notifies :restart, 'service[zookeeper]'
 end
 
@@ -25,7 +25,7 @@ template '/etc/zookeeper/zookeeper.properties' do
   group node['confluent']['group']
   mode '755'
   variables(properties: node['confluent']['zookeeper']['zookeeper.properties'])
-  backup false
+  backup node['confluent']['backup_templates']
   notifies :restart, 'service[zookeeper]'
 end
 

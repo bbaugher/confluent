@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+[1.3.0 - 07-25-2017](https://github.com/bbaugher/confluent/issues?milestone=8&state=closed)
+-------------------------------------------------------------------------------------------
+
+  * [Enhancement] [Issue-28](https://github.com/bbaugher/confluent/issues/28) : make template backups optional
+
 [1.2.0 - 07-24-2017](https://github.com/bbaugher/confluent/issues?milestone=7&state=closed)
 -------------------------------------------------------------------------------------------
 
